@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "155854359882",
+    "firebase_url": "https://lastmyspaza.firebaseio.com",
+    "project_id": "lastmyspaza",
+    "storage_bucket": "lastmyspaza.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155854359882:android:68881697c3e9a1aa",
+        "android_client_info": {
+          "package_name": "com.example.lastmyspaza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155854359882-45qdshp3u7cmj40em1cip2q74fsq4p18.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lastmyspaza",
+            "certificate_hash": "b3ee02f2b0a0f520f345d2f64cb91e56b7228441"
+          }
+        },
+        {
+          "client_id": "155854359882-74pbcdls0s0f7aq1kf59pm9bv97p67ln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm6ymKQlcvx_cLDuRgA9JGoRV9G6Lesl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155854359882-74pbcdls0s0f7aq1kf59pm9bv97p67ln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
