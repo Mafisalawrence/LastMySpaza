@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.R;
+import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.example.lastmyspaza.Shared.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,7 +50,7 @@ public class AccountFragment extends Fragment {
         FirebaseApp.initializeApp(getContext()) ;
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        CreateManagerAccount("manager@llastSpaza.com","lastSpazaManager");
+
     }
 
     @Override
@@ -98,7 +99,7 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            addRoleToDb();
+                            addRoleToDb(Roles.Admin.toString());
                         } else {
                             // If sign in fails, display a message to the user.
                             // Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -110,13 +111,13 @@ public class AccountFragment extends Fragment {
                 });
     }
 
-    private void addRoleToDb(){
+    private void addRoleToDb(String role){
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null ){
-            Toast.makeText(getContext(), "adding to firebase db",
+            Toast.makeText(getContext(), user.getUid(),
                     Toast.LENGTH_LONG).show();
             DatabaseReference databaseReference =  firebaseDatabase.getReference();
-            databaseReference.child("roles").child(user.getUid()).child("role").setValue("manager");
+            databaseReference.child("roles").child(user.getUid()).child("role").setValue(role);
         }
     }
 

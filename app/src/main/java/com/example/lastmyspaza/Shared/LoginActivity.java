@@ -1,5 +1,6 @@
 package com.example.lastmyspaza.Shared;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,18 +12,30 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.Admin.AdminActivity;
+import com.example.lastmyspaza.Manager.MainActivity;
 import com.example.lastmyspaza.R;
+import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.sql.Struct;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
     private EditText emailEditText;
     private EditText passwordEditText;
 
@@ -47,11 +60,19 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         mAuth = FirebaseAuth.getInstance();
-
+        firebaseDatabase = FirebaseDatabase.getInstance();
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AttemptUserLogin(emailEditText.getText().toString(), passwordEditText.getText().toString());
+
+                String email = emailEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                if(isValidEmail(email)){
+                    emailEditText.setError("Invalid email");
+                }else if (isPasswordValid(password)){
+                    passwordEditText.setError("Invalid password");
+                }else
+                AttemptUserLogin(email,password);
             }
         });
     }
@@ -63,42 +84,55 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(LoginActivity.this,"lOGIN SUCCESS",Toast.LENGTH_LONG).show();
                             FirebaseUser currentUser = mAuth.getCurrentUser();
+                            String uid = currentUser.getUid();
+                            if(!uid.isEmpty()) determineUserRole(uid);
 
-                            Intent adminActivity = new Intent(LoginActivity.this, AdminActivity.class);
-                            startActivity(adminActivity);
-                            //gets current user
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            // updateUI(null);
                         }
                     }
                 });
     }
 
-    private void CreateUser(String email, String password)
-    {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+    public Boolean isValidEmail(String email){
+        String emailPattern = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(emailPattern);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+    public Boolean isPasswordValid(String password){
+        return password.length() < 6 ;
+    }
+    public void beginActivity(Activity activity){
+            Intent intent = new Intent(LoginActivity.this, activity.getClass());
+            startActivity(intent);
+    }
 
-                            FirebaseUser user = mAuth.getCurrentUser(); //gets current user
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            // Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            // updateUI(null);
-                        }
-                    }
-                });
+    public void determineUserRole(String uid){
+        DatabaseReference ref = firebaseDatabase.getReference("roles").child(uid).child("role");
+        ref.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+             String role = dataSnapshot.getValue(String.class);
+             setUserRole(role);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+    public void setUserRole(String role){
+        if (role == Roles.Admin.toString()){
+            beginActivity(new AdminActivity());
+        }else{
+            beginActivity(new MainActivity());
+        }
     }
 }
