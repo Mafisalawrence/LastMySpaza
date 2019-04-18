@@ -46,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("STE",e.toString());
         }
 
-
         mAuth = FirebaseAuth.getInstance();
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -66,9 +65,11 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this,"lOGIN SUCCESS",Toast.LENGTH_LONG).show();
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+
                             Intent adminActivity = new Intent(LoginActivity.this, AdminActivity.class);
                             startActivity(adminActivity);
-                          //  FirebaseUser user = auth.getCurrentUser(); //gets current user
+                            //gets current user
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "createUserWithEmail:failure", task.getException());
