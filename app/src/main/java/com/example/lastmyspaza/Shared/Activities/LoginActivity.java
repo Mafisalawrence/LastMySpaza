@@ -1,4 +1,4 @@
-package com.example.lastmyspaza.Shared;
+package com.example.lastmyspaza.Shared.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.Admin.AdminActivity;
-import com.example.lastmyspaza.Manager.MainActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,7 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Struct;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,7 +49,8 @@ public class LoginActivity extends AppCompatActivity {
 
         emailEditText.setText("admin@lastspaza.com");
         passwordEditText.setText("lastSpazaAdmin");
-        //Firebase auth instance
+
+        //Fire base auth instance
         try{
             FirebaseApp.initializeApp(LoginActivity.this);
         }catch (Exception e)
@@ -119,8 +118,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
              String role = dataSnapshot.getValue(String.class);
-             setUserRole(role);
-
+             checkUserRole(role);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -128,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    public void setUserRole(String role){
+    public void checkUserRole(String role){
         if (role == Roles.Admin.toString()){
             beginActivity(new AdminActivity());
         }else{
