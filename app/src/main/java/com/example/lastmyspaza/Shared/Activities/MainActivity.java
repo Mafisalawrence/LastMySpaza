@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,Registration.class);
+                Intent intent = new Intent(MainActivity.this,RegistrationActivity.class);
                 startActivity(intent);
             }
         });
