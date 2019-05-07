@@ -1,18 +1,23 @@
 package com.example.lastmyspaza.Shared.Activities;
 
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Fragments.RegistrationFragments.PersonalDetails;
+import com.example.lastmyspaza.Shared.Fragments.Registration.AccountDetails;
+import com.example.lastmyspaza.Shared.Fragments.Registration.PersonalDetails;
+import com.example.lastmyspaza.Shared.Fragments.Registration.StoreDetails;
 
-class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity implements AccountDetails.OnFragmentInteractionListener,
+        PersonalDetails.OnFragmentInteractionListener,
+        StoreDetails.OnFragmentInteractionListener{
+
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +25,7 @@ class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration2);
 
        getSupportFragmentManager().beginTransaction()
-         .replace(R.id.fragment_container, new PersonalDetails()).commit();
+         .replace(R.id.fragment_container, new AccountDetails()).commit();
 
     }
 

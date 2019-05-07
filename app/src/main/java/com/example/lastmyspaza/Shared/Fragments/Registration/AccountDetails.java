@@ -1,4 +1,4 @@
-package com.example.lastmyspaza.Shared.Fragments.RegistrationFragments;
+package com.example.lastmyspaza.Shared.Fragments.Registration;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,55 +10,59 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.lastmyspaza.Admin.Fragments.AccountFragment;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 
+public class AccountDetails extends Fragment {
 
-public class PersonalDetails extends Fragment {
     private OnFragmentInteractionListener mListener;
-    private EditText mFirstName;
-    private EditText mLastName;
+    private EditText mEmail;
+    private EditText mPassword;
+    private EditText mConfirmPassword;
     private Button mContinue;
 
-    public PersonalDetails() {
+    public AccountDetails() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_personal_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_account_details, container, false);
+        mEmail = view.findViewById(R.id.email);
+        mPassword = view.findViewById(R.id.password);
+        mConfirmPassword = view.findViewById(R.id.confirm_password);
+        mContinue = view.findViewById(R.id.button_continue);
 
-        mFirstName = view.findViewById(R.id.first_name);
-        mLastName = view.findViewById(R.id.last_name);
-
-        final String firstName = mFirstName.getText().toString();
-        final String lastName = mLastName.getText().toString();
-        final AccountDetails accountDetails = new AccountDetails();
         final ManagerDetails managerDetails = new ManagerDetails();
+
 
         mContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!firstName.isEmpty() && !lastName.isEmpty()){
-                    managerDetails.setFirstName(firstName);
-                    managerDetails.setLastName(lastName);
+                PersonalDetails personalDetails =  new PersonalDetails();
+                managerDetails.setEmail(mEmail.getText().toString());
+                managerDetails.setPassword(mPassword.getText().toString());
 
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("managerDetails",managerDetails);
-                    accountDetails.setArguments(bundle);
-                    accountDetails.getFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, new PersonalDetails()).commit();
+                Bundle bundle =  new Bundle();
+                bundle.putSerializable("managerDetails", managerDetails);
+                personalDetails.setArguments(bundle);
 
-                }
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, personalDetails )
+                        .commit();
             }
         });
+
         return view;
     }
 
@@ -72,6 +76,12 @@ public class PersonalDetails extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override

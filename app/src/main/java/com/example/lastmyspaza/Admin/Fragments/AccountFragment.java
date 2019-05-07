@@ -1,4 +1,4 @@
-package com.example.lastmyspaza.Shared.Fragments;
+package com.example.lastmyspaza.Admin.Fragments;
 
 import android.content.Context;
 import android.net.Uri;

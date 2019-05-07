@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.lastmyspaza.Shared.Fragments.AccountFragment;
+import com.example.lastmyspaza.Admin.Fragments.AccountFragment;
 import com.example.lastmyspaza.Admin.Fragments.NotificationFragment;
 import com.example.lastmyspaza.Admin.Fragments.StaticticsFragment;
 import com.example.lastmyspaza.R;

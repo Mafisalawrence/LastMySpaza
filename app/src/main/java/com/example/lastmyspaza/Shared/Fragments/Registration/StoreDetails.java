@@ -1,4 +1,4 @@
-package com.example.lastmyspaza.Shared.Fragments.RegistrationFragments;
+package com.example.lastmyspaza.Shared.Fragments.Registration;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,12 +7,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.lastmyspaza.R;
+import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 
 public class StoreDetails extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private EditText mStoreName;
+    private EditText mStoreLocation;
+    private Button mSignUp;
 
     public StoreDetails() {
         // Required empty public constructor
@@ -29,6 +36,21 @@ public class StoreDetails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_strore_details, container, false);
+        mStoreName = view.findViewById(R.id.store_name);
+        mStoreLocation = view.findViewById(R.id.store_location);
+        mSignUp = view.findViewById(R.id.button_submit);
+
+        final ManagerDetails managerDetails = (ManagerDetails) getArguments().getSerializable("managerDetails");
+        mSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(getContext(),managerDetails.getEmail(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
         return view;
     }
 

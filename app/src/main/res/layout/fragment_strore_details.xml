@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Shared.Fragments.RegistrationFragments.PersonalDetails">
+    tools:context=".Shared.Fragments.Registration.PersonalDetails">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -42,13 +42,13 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/button_continue"
+            android:id="@+id/button_submit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="24dp"
             android:padding="15dp"
-            android:text="@string/action_continue"
+            android:text="@string/action_sign_up"
             android:background="@drawable/button_background"/>
 
     </LinearLayout>
