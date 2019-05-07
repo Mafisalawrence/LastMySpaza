@@ -1,4 +1,4 @@
-package com.example.lastmyspaza.Shared;
+package com.example.lastmyspaza.Shared.Interfaces;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
