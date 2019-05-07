@@ -4,14 +4,13 @@ import java.io.Serializable;
 
 public class ManagerDetails implements Serializable {
 
-    public String firstName;
-    public String LastName;
+    private String firstName;
+    private String lastName;
 
-    public String email;
-    public String password;
+    private String email;
 
-    public String storeName;
-    public String storeLocation;
+    private String storeName;
+    private String storeLocation;
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
@@ -21,13 +20,7 @@ public class ManagerDetails implements Serializable {
         this.storeLocation = storeLocation;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setLastName(String lastName) {
-        LastName = lastName;
-    }
+    public void setLastName(String lastName) { lastName = lastName; }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -45,12 +38,8 @@ public class ManagerDetails implements Serializable {
         return storeLocation;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public String getFirstName() {

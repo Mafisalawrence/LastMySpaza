@@ -55,6 +55,7 @@ public class PersonalDetails extends Fragment {
 
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("managerDetails",managerDetails);
+                    bundle.putString("identifier", getArguments().getString("identifier"));
                     storeDetails.setArguments(bundle);
 
                     getFragmentManager().beginTransaction()

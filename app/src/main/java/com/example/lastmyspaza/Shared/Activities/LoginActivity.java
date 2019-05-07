@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.Admin.AdminActivity;
+import com.example.lastmyspaza.Manager.ManagerActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -85,11 +86,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser currentUser = mAuth.getCurrentUser();
                             String uid = currentUser.getUid();
-                            if(!uid.isEmpty()) determineUserRole(uid);
-
+                            determineUserRole(uid);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            //Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -130,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
         if (role == Roles.Admin.toString()){
             beginActivity(new AdminActivity());
         }else{
-            beginActivity(new MainActivity());
+            beginActivity(new ManagerActivity());
         }
     }
 }

@@ -3,7 +3,9 @@ package com.example.lastmyspaza.Shared.Fragments.Registration;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.R;
+import com.example.lastmyspaza.Shared.Classes.Authentication;
+import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
+import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.concurrent.Executor;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class StoreDetails extends Fragment {
 
@@ -20,6 +33,9 @@ public class StoreDetails extends Fragment {
     private EditText mStoreName;
     private EditText mStoreLocation;
     private Button mSignUp;
+    private DatabaseIteration databaseIteration;
+    private ManagerDetails managerDetails;
+    private Authentication authentication;
 
     public StoreDetails() {
         // Required empty public constructor
@@ -40,17 +56,18 @@ public class StoreDetails extends Fragment {
         mStoreLocation = view.findViewById(R.id.store_location);
         mSignUp = view.findViewById(R.id.button_submit);
 
-        final ManagerDetails managerDetails = (ManagerDetails) getArguments().getSerializable("managerDetails");
+        authentication = new Authentication(getContext());
+        databaseIteration = new DatabaseIteration(getContext());
+        managerDetails = (ManagerDetails) getArguments().getSerializable("managerDetails");
+
         mSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(getContext(),managerDetails.getEmail(), Toast.LENGTH_LONG).show();
+                managerDetails.setStoreName(mStoreName.getText().toString());
+                managerDetails.setStoreLocation(mStoreLocation.getText().toString());
+                addManagerDetailsToDb(getArguments().getString("identifier"));
             }
         });
-
-
-
         return view;
     }
 
@@ -71,6 +88,23 @@ public class StoreDetails extends Fragment {
         mListener = null;
     }
 
+
+    public void addManagerDetailsToDb(String uid)
+    {
+        databaseIteration.addManagerInformationToDb(uid,managerDetails)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(getContext(),"Manager details added to db", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Toast.makeText(getContext(),"Failed to add manager details to db", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

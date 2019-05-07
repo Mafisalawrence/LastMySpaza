@@ -96,13 +96,10 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            addRoleToDb(Roles.Admin.toString());
+                            addRoleToDb(Roles.Manager.toString());
                         } else {
-                            // If sign in fails, display a message to the user.
-                            // Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getContext(), "Authentication failed.",
+                            Toast.makeText(getContext(), task.getException().toString(),
                                     Toast.LENGTH_SHORT).show();
-                            // updateUI(null);
                         }
                     }
                 });
