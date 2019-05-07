@@ -4,11 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.lastmyspaza.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +36,10 @@ public class AccountFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private List<Users> userList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private UsersAdapter userAdapter;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -59,13 +70,26 @@ public class AccountFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_account, container, false);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+
+        userAdapter = new UsersAdapter(userList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(userAdapter);
+
+        prepareUserData();
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,5 +129,58 @@ public class AccountFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    private void prepareUserData() {
+        Users user = new Users("Mad Max: Fury Road", "Action & Adventure");
+        userList.add(user);
+
+        user = new Users("Inside Out", "Animation, Kids & Family");
+        userList.add(user);
+
+        user = new Users("Star Wars: Episode VII - The Force Awakens", "Action");
+        userList.add(user);
+
+        user = new Users("Shaun the Sheep", "Animation");
+        userList.add(user);
+
+        user = new Users("The Martian", "Science Fiction & Fantasy");
+        userList.add(user);
+
+        user = new Users("Mission: Impossible Rogue Nation", "Action");
+        userList.add(user);
+
+        user = new Users("Up", "Animation");
+        userList.add(user);
+
+        user = new Users("Star Trek", "Science Fiction");
+        userList.add(user);
+
+        user = new Users("The LEGO Movie", "Animation");
+        userList.add(user);
+
+        user = new Users("Iron Man", "Action & Adventure");
+        userList.add(user);
+
+        user = new Users("Aliens", "Science Fiction");
+        userList.add(user);
+
+        user = new Users("Chicken Run", "Animation");
+        userList.add(user);
+
+        user = new Users("Back to the Future", "Science Fiction");
+        userList.add(user);
+
+        user = new Users("Raiders of the Lost Ark", "Action & Adventure");
+        userList.add(user);
+
+        user = new Users("Goldfinger", "Action & Adventure");
+        userList.add(user);
+
+        user = new Users("Guardians of the Galaxy", "Science Fiction & Fantasy");
+        userList.add(user);
+
+        userAdapter.notifyDataSetChanged();
     }
 }

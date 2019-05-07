@@ -1,5 +1,4 @@
 package com.example.lastmyspaza.Manager;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
 
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_stats);
                     return true;
                 case R.id.navigation_dashboard:
+
                     mTextMessage.setText(R.string.title_accounts);
                     return true;
                 case R.id.navigation_notifications:

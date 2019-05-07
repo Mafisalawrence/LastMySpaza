@@ -20,20 +20,20 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
 
-    private FirebaseAuth mAuth;
+   /* private FirebaseAuth mAuth;
     private EditText emailEditText;
-    private EditText passwordEditText;
+    private EditText passwordEditText;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.register);
 
         //UI instances
-        emailEditText = findViewById(R.id.email);
+        /*emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
         Button signInButton = findViewById(R.id.email_sign_in_button);
         Button signUpButton = findViewById(R.id.email_register_in_button);
@@ -61,12 +61,12 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegisterUser();
+                RegisterUser(new RegisterFragment());
             }
-        });
+        });*/
     }
 
-    private void AttemptUserLogin(String email, String password)
+    /*private void AttemptUserLogin(String email, String password)
     {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this,"lOGIN SUCCESS",Toast.LENGTH_LONG).show();
                             Intent adminActivity = new Intent(LoginActivity.this, AdminActivity.class);
                             startActivity(adminActivity);
-                          //  FirebaseUser user = auth.getCurrentUser(); //gets current user
+                            //  FirebaseUser user = auth.getCurrentUser(); //gets current user
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -89,10 +89,10 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void RegisterUser(){
-        Toast.makeText(LoginActivity.this,"Got Here",Toast.LENGTH_LONG).show();
-        Intent registerActivity = new Intent(LoginActivity.this, RegisterActivity.class);
-        startActivity(registerActivity);
+    private void RegisterUser(Fragment fragment){
+        this.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 
     private void CreateUser(String email, String password)
@@ -114,5 +114,5 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
+    }*/
 }
