@@ -26,7 +26,7 @@ public class Authentication {
         return mAuth.getCurrentUser();
     }
 
-    public void SignOutCurrentUser(){
+    public  void SignOutCurrentUser(){
         mAuth.signOut();
     }
 }

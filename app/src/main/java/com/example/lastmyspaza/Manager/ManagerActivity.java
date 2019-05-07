@@ -3,10 +3,12 @@ package com.example.lastmyspaza.Manager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.lastmyspaza.Manager.Fragments.SettingsFragment;
 import com.example.lastmyspaza.R;
 
 public class ManagerActivity extends AppCompatActivity {
@@ -28,6 +30,10 @@ public class ManagerActivity extends AppCompatActivity {
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
                     return true;
+
+                case R.id.navigation_settings:
+                    loadFragment(new SettingsFragment());
+                    return true;
             }
             return false;
         }
@@ -42,5 +48,9 @@ public class ManagerActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-
+    private void loadFragment(Fragment fragment){
+        this.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
 }

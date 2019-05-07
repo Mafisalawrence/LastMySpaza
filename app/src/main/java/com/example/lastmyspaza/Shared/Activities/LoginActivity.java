@@ -48,8 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         Button signInButton = findViewById(R.id.email_sign_in_button);
 
-        emailEditText.setText("admin@lastspaza.com");
-        passwordEditText.setText("lastSpazaAdmin");
+        emailEditText.setText("manager@manage.com");
+        passwordEditText.setText("123456");
 
         //Fire base auth instance
         try{
@@ -104,15 +104,16 @@ public class LoginActivity extends AppCompatActivity {
     public Boolean isPasswordValid(String password){
         return password.length() < 6 ;
     }
+
     public void beginActivity(Activity activity){
             Intent intent = new Intent(LoginActivity.this, activity.getClass());
             startActivity(intent);
     }
 
     public void determineUserRole(String uid){
-        DatabaseReference ref = firebaseDatabase.getReference("roles").child(uid).child("role");
+        Toast.makeText(LoginActivity.this,uid,Toast.LENGTH_LONG).show();
+        DatabaseReference ref = firebaseDatabase.getReference("roles").child(uid).child("roles");
         ref.addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
              String role = dataSnapshot.getValue(String.class);
@@ -125,7 +126,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     public void checkUserRole(String role){
-        if (role == Roles.Admin.toString()){
+
+        if (role.equals(Roles.Admin.toString())){
+            Toast.makeText(LoginActivity.this,role,Toast.LENGTH_LONG).show();
             beginActivity(new AdminActivity());
         }else{
             beginActivity(new ManagerActivity());
