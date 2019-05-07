@@ -3,7 +3,6 @@ package com.example.lastmyspaza.Admin.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Enums.Roles;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.lastmyspaza.Shared.Classes.Authentication;
+import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
+import com.example.lastmyspaza.Shared.OnGetDataListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,10 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 public class AccountFragment extends Fragment {
 
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
-
     private OnFragmentInteractionListener mListener;
+    private DatabaseIteration databaseIteration;
+    private Authentication authentication;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -44,17 +38,35 @@ public class AccountFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseApp.initializeApp(getContext()) ;
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+         View view = inflater.inflate(R.layout.fragment_account, container, false);
+
+         databaseIteration = new DatabaseIteration(getContext());
+         authentication = new Authentication(getContext());
+
+         databaseIteration.getCurrentUserRole(authentication.GetCurrentUser().getUid(), new OnGetDataListener() {
+             @Override
+             public void onStart() {
+
+             }
+
+             @Override
+             public void onSuccess(DataSnapshot data) {
+
+                 Toast.makeText(getContext(),data.getValue().toString(),Toast.LENGTH_LONG).show();
+             }
+
+             @Override
+             public void onFailed(DatabaseError databaseError) {
+
+             }
+         });
+         return view;
     }
 
     @Override
@@ -87,32 +99,6 @@ public class AccountFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    private void CreateManagerAccount(String email, String password)
-    {
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            addRoleToDb(Roles.Manager.toString());
-                        } else {
-                            Toast.makeText(getContext(), task.getException().toString(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    private void addRoleToDb(String role){
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null ){
-            Toast.makeText(getContext(), user.getUid(),
-                    Toast.LENGTH_LONG).show();
-            DatabaseReference databaseReference =  firebaseDatabase.getReference();
-            databaseReference.child("roles").child(user.getUid()).child("role").setValue(role);
-        }
     }
 
 }

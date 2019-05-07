@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
+import com.example.lastmyspaza.Shared.OnGetDataListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,18 +31,19 @@ public class DatabaseIteration {
         DatabaseReference myRef = firebaseDatabase.getReference("managers");
          return myRef.child(uid).setValue(managerDetails);
     }
-    public void getCurrrentUserRole(String uid){
+    public void getCurrentUserRole(String uid, final OnGetDataListener listener){
+        listener.onStart();
         DatabaseReference myRef =  firebaseDatabase.getReference("roles")
-                .child(uid).child("role");
+                .child(uid).child("roles");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                listener.onSuccess(dataSnapshot);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                listener.onFailed(databaseError);
             }
         });
     }
