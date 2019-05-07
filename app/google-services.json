@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "155854359882-2e6vrmh7cr5o029f6ru3q78m755ke6bg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lastmyspaza",
+            "certificate_hash": "f2955b0972789ffb93d876275bddc9c562939385"
+          }
+        },
+        {
           "client_id": "155854359882-45qdshp3u7cmj40em1cip2q74fsq4p18.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

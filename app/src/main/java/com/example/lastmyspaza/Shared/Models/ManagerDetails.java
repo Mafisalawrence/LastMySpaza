@@ -49,4 +49,14 @@ public class ManagerDetails implements Serializable {
     public String getEmail() {
         return email;
     }
+
+    public ManagerDetails(){}
+
+    public ManagerDetails(String firstName, String lastName, String email, String storeName, String storeLocation){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.storeName = storeName;
+        this.storeLocation = storeLocation;
+    }
 }

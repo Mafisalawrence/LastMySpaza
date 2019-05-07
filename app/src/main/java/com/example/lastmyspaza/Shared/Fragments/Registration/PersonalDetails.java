@@ -39,9 +39,7 @@ public class PersonalDetails extends Fragment {
         mFirstName = view.findViewById(R.id.first_name);
         mLastName = view.findViewById(R.id.last_name);
         mContinue = view.findViewById(R.id.button_continue);
-
-        final String firstName = mFirstName.getText().toString();
-        final String lastName = mLastName.getText().toString();
+        
         final StoreDetails storeDetails = new StoreDetails();
         final ManagerDetails managerDetails = (ManagerDetails) getArguments().getSerializable("managerDetails");
 
@@ -50,8 +48,8 @@ public class PersonalDetails extends Fragment {
 
             @Override
             public void onClick(View v) {
-                    managerDetails.setFirstName(firstName);
-                    managerDetails.setLastName(lastName);
+                    managerDetails.setFirstName(mFirstName.getText().toString());
+                    managerDetails.setLastName(mLastName.getText().toString());
 
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("managerDetails",managerDetails);

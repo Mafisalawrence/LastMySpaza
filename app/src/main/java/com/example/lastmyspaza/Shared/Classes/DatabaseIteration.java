@@ -3,6 +3,7 @@ package com.example.lastmyspaza.Shared.Classes;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -10,6 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 public class DatabaseIteration {
 
@@ -44,5 +46,24 @@ public class DatabaseIteration {
 
             }
         });
+    }
+
+    public void getAccountDetailList(String node, final OnGetDataListener listener){
+        listener.onStart();
+        DatabaseReference myRef = firebaseDatabase.getReference(node);
+        myRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Get map of users in datasnapshot
+                        listener.onSuccess(dataSnapshot);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        listener.onFailed(databaseError);
+                    }
+                });
     }
 }

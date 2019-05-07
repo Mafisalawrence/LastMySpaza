@@ -48,8 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         Button signInButton = findViewById(R.id.email_sign_in_button);
 
-        emailEditText.setText("admin@lastspaza.com");
-        passwordEditText.setText("lastSpazaAdmin");
+        emailEditText.setText("Admin@spaza.com");
+        passwordEditText.setText("123456");
 
         //Fire base auth instance
         try{
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void determineUserRole(String uid){
-        DatabaseReference ref = firebaseDatabase.getReference("roles").child(uid).child("role");
+        DatabaseReference ref = firebaseDatabase.getReference("roles").child(uid).child("roles");
         ref.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -125,7 +125,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     public void checkUserRole(String role){
-        if (role == Roles.Admin.toString()){
+        Toast.makeText(LoginActivity.this,role,Toast.LENGTH_LONG).show();
+        if (role.equals(Roles.Admin.toString())){
             beginActivity(new AdminActivity());
         }else{
             beginActivity(new ManagerActivity());
