@@ -20,7 +20,7 @@ public class ManagerDetails implements Serializable {
         this.storeLocation = storeLocation;
     }
 
-    public void setLastName(String lastName) { lastName = lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

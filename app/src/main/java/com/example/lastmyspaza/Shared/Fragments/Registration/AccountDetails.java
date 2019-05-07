@@ -63,9 +63,8 @@ public class AccountDetails extends Fragment {
             @Override
             public void onClick(View v) {
                 managerDetails.setEmail(mEmail.getText().toString());
-                managerDetails.setPassword(mPassword.getText().toString());
 
-                authentication.CreateManagerAccount(managerDetails.getEmail(),managerDetails.getPassword())
+                authentication.CreateManagerAccount(managerDetails.getEmail(),mPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
