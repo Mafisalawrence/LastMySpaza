@@ -1,6 +1,7 @@
 package com.example.lastmyspaza.Shared.Fragments.Registration;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.lastmyspaza.Manager.ManagerActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
@@ -98,6 +100,8 @@ public class StoreDetails extends Fragment {
                         if(task.isSuccessful())
                         {
                             Toast.makeText(getContext(),"Manager details added to db", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getActivity(), ManagerActivity.class);
+                            startActivity(intent);
                         }
                         else{
                             Toast.makeText(getContext(),"Failed to add manager details to db", Toast.LENGTH_LONG).show();

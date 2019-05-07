@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         Button signInButton = findViewById(R.id.email_sign_in_button);
 
-        emailEditText.setText("manager@manage.com");
+        emailEditText.setText("Admin@spaza.com");
         passwordEditText.setText("123456");
 
         //Fire base auth instance
@@ -104,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
     public Boolean isPasswordValid(String password){
         return password.length() < 6 ;
     }
-
     public void beginActivity(Activity activity){
             Intent intent = new Intent(LoginActivity.this, activity.getClass());
             startActivity(intent);
@@ -126,9 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     public void checkUserRole(String role){
-
         if (role.equals(Roles.Admin.toString())){
-            Toast.makeText(LoginActivity.this,role,Toast.LENGTH_LONG).show();
             beginActivity(new AdminActivity());
         }else{
             beginActivity(new ManagerActivity());

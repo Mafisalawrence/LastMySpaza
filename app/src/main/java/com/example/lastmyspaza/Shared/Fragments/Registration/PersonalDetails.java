@@ -39,8 +39,7 @@ public class PersonalDetails extends Fragment {
         mFirstName = view.findViewById(R.id.first_name);
         mLastName = view.findViewById(R.id.last_name);
         mContinue = view.findViewById(R.id.button_continue);
-
-
+        
         final StoreDetails storeDetails = new StoreDetails();
         final ManagerDetails managerDetails = (ManagerDetails) getArguments().getSerializable("managerDetails");
 
