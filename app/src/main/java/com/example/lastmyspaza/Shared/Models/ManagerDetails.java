@@ -6,9 +6,7 @@ public class ManagerDetails implements Serializable {
 
     private String firstName;
     private String lastName;
-
     private String email;
-
     private String storeName;
     private String storeLocation;
 

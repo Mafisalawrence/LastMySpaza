@@ -11,18 +11,11 @@ import android.widget.TextView;
 
 import com.example.lastmyspaza.Admin.Fragments.AccountFragment;
 import com.example.lastmyspaza.Admin.Fragments.NotificationFragment;
-import com.example.lastmyspaza.Admin.Fragments.StaticticsFragment;
+import com.example.lastmyspaza.Admin.Fragments.StatisticsFragment;
 import com.example.lastmyspaza.R;
 
-public class AdminActivity extends AppCompatActivity
-        implements StaticticsFragment.OnFragmentInteractionListener,
-                    NotificationFragment.OnFragmentInteractionListener,
-                    AccountFragment.OnFragmentInteractionListener{
+public class AdminActivity extends AppCompatActivity {
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 
     private TextView mTextMessage;
 
@@ -33,7 +26,7 @@ public class AdminActivity extends AppCompatActivity
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    loadFragment(new StaticticsFragment());
+                    loadFragment(new StatisticsFragment());
                     return true;
                 case R.id.navigation_dashboard:
                     loadFragment(new AccountFragment());
@@ -53,7 +46,7 @@ public class AdminActivity extends AppCompatActivity
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        loadFragment(new StaticticsFragment());
+        loadFragment(new StatisticsFragment());
     }
 
     private void loadFragment(Fragment fragment){

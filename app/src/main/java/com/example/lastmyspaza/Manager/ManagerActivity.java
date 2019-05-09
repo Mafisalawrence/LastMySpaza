@@ -8,10 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.lastmyspaza.Admin.Fragments.NotificationFragment;
+import com.example.lastmyspaza.Admin.Fragments.StatisticsFragment;
+import com.example.lastmyspaza.Manager.Fragments.AddProductFragment;
+import com.example.lastmyspaza.Manager.Fragments.EmptyStateInventoryFragment;
+import com.example.lastmyspaza.Manager.Fragments.InventoryFragment;
 import com.example.lastmyspaza.Manager.Fragments.SettingsFragment;
 import com.example.lastmyspaza.R;
 
-public class ManagerActivity extends AppCompatActivity {
+public class ManagerActivity extends AppCompatActivity
+{
 
     private TextView mTextMessage;
 
@@ -21,14 +27,14 @@ public class ManagerActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.navigation_inventory:
+                    loadFragment(new InventoryFragment());
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_statistics:
+                    loadFragment(new StatisticsFragment());
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    loadFragment(new NotificationFragment());
                     return true;
 
                 case R.id.navigation_settings:
@@ -47,6 +53,10 @@ public class ManagerActivity extends AppCompatActivity {
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        //TODO Check if the are any product and display appropriate fragment
+       // loadFragment(new EmptyStateInventoryFragment());
+        loadFragment(new InventoryFragment());
     }
     private void loadFragment(Fragment fragment){
         this.getSupportFragmentManager().beginTransaction()

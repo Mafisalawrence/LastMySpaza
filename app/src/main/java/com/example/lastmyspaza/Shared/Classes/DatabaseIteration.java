@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
+import com.example.lastmyspaza.Shared.Models.ProductDetails;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +34,11 @@ public class DatabaseIteration {
         DatabaseReference myRef = firebaseDatabase.getReference("managers");
          return myRef.child(uid).setValue(managerDetails);
     }
+    public Task<Void> addProductDetailsToDb(String uid, ProductDetails productDetails)
+    {
+        DatabaseReference myRef = firebaseDatabase.getReference("products");
+        return myRef.child(uid).setValue(productDetails);
+    }
     public void getCurrentUserRole(String uid, final OnGetDataListener listener){
         listener.onStart();
         DatabaseReference myRef =  firebaseDatabase.getReference("roles")
@@ -57,7 +63,6 @@ public class DatabaseIteration {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        //Get map of users in datasnapshot
                         listener.onSuccess(dataSnapshot);
                     }
 
