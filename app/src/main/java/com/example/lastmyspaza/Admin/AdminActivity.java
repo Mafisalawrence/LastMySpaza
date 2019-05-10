@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.lastmyspaza.Admin.Fragments.AccountFragment;
 import com.example.lastmyspaza.Admin.Fragments.NotificationFragment;
 import com.example.lastmyspaza.Admin.Fragments.StatisticsFragment;
+import com.example.lastmyspaza.Manager.Fragments.SettingsFragment;
 import com.example.lastmyspaza.R;
 
 public class AdminActivity extends AppCompatActivity {
@@ -33,6 +34,10 @@ public class AdminActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_notifications:
                     loadFragment(new NotificationFragment());
+                    return true;
+
+                case R.id.navigation_settings:
+                    loadFragment(new SettingsFragment());
                     return true;
             }
             return false;
