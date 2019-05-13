@@ -2,13 +2,24 @@ package com.example.lastmyspaza.Shared.Models;
 
 import java.util.Date;
 
-public class ProductDetails {
+public class Product {
 
     private String productName;
     private String productCategory;
     private Integer quantity;
     private Double price;
     private String dateAdded;
+
+    public Product(){
+
+    }
+    public Product(String productName,String productCategory, Integer quantity, Double price , String dateAdded){
+        this.productName = productName;
+        this.price = price;
+        this.dateAdded = dateAdded;
+        this.quantity = quantity;
+        this.productCategory = productCategory;
+    }
 
     public Integer getQuantity() {
         return quantity;

@@ -18,7 +18,7 @@ import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.example.lastmyspaza.Shared.Fragments.Registration.PersonalDetails;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
-import com.example.lastmyspaza.Shared.Models.ProductDetails;
+import com.example.lastmyspaza.Shared.Models.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -52,18 +52,18 @@ public class AddProductFragment extends Fragment {
       addProduct.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              ProductDetails productDetails = addProductDetailsToModel();
-              addProductDetails(productDetails);
+              Product product = addProductDetailsToModel();
+              addProductDetails(product);
           }
       });
       return view;
     }
-    private void addProductDetails(ProductDetails productDetails)
+    private void addProductDetails(Product product)
     {
         DatabaseIteration databaseIteration = new DatabaseIteration(getContext());
         authentication = new Authentication(getContext());
         String uid = authentication.GetCurrentUser().getUid();
-        databaseIteration.addProductDetailsToDb(uid, productDetails)
+        databaseIteration.addProductDetailsToDb(uid, product)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -78,9 +78,9 @@ public class AddProductFragment extends Fragment {
                     }
                 });
     }
-    private ProductDetails addProductDetailsToModel(){
+    private Product addProductDetailsToModel(){
 
-        ProductDetails productDetails= new ProductDetails();
+        Product productDetails= new Product();
         productDetails.setProductName(productName.getText().toString());
         productDetails.setProductCategory(productCategory.getText().toString());
         productDetails.setPrice(Double.parseDouble(productPrice.getText().toString()));
