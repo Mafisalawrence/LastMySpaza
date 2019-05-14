@@ -2,6 +2,7 @@ package com.example.lastmyspaza.Manager.Fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,11 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.Admin.Fragments.UsersAdapter;
 import com.example.lastmyspaza.Manager.Adapters.ProductsAdapter;
+import com.example.lastmyspaza.Manager.AddProductActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
@@ -52,6 +55,15 @@ public class InventoryFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(productsAdapter);
+
+        Button addProduct = rootView.findViewById(R.id.add_product_button);
+        addProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(getActivity(), AddProductActivity.class);
+                startActivity(intent);
+            }
+        });
        return rootView;
     }
 

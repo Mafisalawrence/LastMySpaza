@@ -1,6 +1,7 @@
 package com.example.lastmyspaza.Manager.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.lastmyspaza.Manager.AddProductActivity;
 import com.example.lastmyspaza.R;
 
 
@@ -30,9 +32,8 @@ public class EmptyStateInventoryFragment extends Fragment {
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container,new AddProductFragment())
-                        .commit();
+                Intent intent =  new Intent(getActivity(), AddProductActivity.class);
+                startActivity(intent);
             }
         });
         return view;

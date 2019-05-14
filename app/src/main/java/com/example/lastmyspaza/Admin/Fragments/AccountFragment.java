@@ -43,7 +43,7 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        recyclerView = rootView.findViewById(R.id.recycler_view);
 
         userAdapter = new UsersAdapter(accList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());

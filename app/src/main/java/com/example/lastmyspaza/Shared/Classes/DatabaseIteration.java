@@ -39,7 +39,7 @@ public class DatabaseIteration {
     public Task<Void> addProductDetailsToDb(String uid, Product productDetails)
     {
         DatabaseReference myRef = firebaseDatabase.getReference("products");
-        return myRef.child(uid).child("product-2").setValue(productDetails);
+        return myRef.child(uid).child("product-4").setValue(productDetails);
     }
 
     public void getCurrentUserRole(String uid, final OnGetDataListener listener){
