@@ -38,8 +38,14 @@ public class DatabaseIteration {
     }
     public Task<Void> addProductDetailsToDb(String uid, Product productDetails)
     {
+        //TODO GET NUMBER OF PRODUCTS
         DatabaseReference myRef = firebaseDatabase.getReference("products");
         return myRef.child(uid).child("product-4").setValue(productDetails);
+    }
+    public Task<Void> deleteProductFromDb(String uid,Product product)
+    {
+        DatabaseReference myRef = firebaseDatabase.getReference("products");
+        return myRef.child(uid).child("product-4").removeValue();
     }
 
     public void getCurrentUserRole(String uid, final OnGetDataListener listener){
