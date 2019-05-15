@@ -1,4 +1,4 @@
-package com.example.lastmyspaza.Manager;
+package com.example.lastmyspaza.Manager.Activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

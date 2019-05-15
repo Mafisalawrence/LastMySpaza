@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.Admin.AdminActivity;
-import com.example.lastmyspaza.Manager.ManagerActivity;
+import com.example.lastmyspaza.Manager.Activities.ManagerActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.google.android.gms.tasks.OnCompleteListener;

@@ -13,10 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Manager.ProductDetailsActivity"></activity>
-        <activity android:name=".Manager.AddProductActivity" />
+        <activity android:name=".Manager.Activities.ProductDetailsActivity"></activity>
+        <activity android:name=".Manager.Activities.AddProductActivity" />
         <activity
-            android:name=".Manager.ManagerActivity"
+            android:name=".Manager.Activities.ManagerActivity"
             android:label="@string/title_activity_manager" />
         <activity
             android:name=".Shared.Activities.RegistrationActivity"

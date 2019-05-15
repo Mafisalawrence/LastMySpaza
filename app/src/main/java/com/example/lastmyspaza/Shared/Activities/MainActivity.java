@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.Admin.AdminActivity;
-import com.example.lastmyspaza.Manager.ManagerActivity;
+import com.example.lastmyspaza.Manager.Activities.ManagerActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.lastmyspaza.Manager.AddProductActivity;
+import com.example.lastmyspaza.Manager.Activities.AddProductActivity;
 import com.example.lastmyspaza.R;
 
 
