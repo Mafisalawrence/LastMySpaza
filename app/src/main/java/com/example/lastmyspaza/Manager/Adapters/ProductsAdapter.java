@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.lastmyspaza.R;
+import com.example.lastmyspaza.Shared.Interfaces.OnItemClickListener;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.Models.Product;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyViewHolder> {
 
     private ArrayList<Product> products;
+    private OnItemClickListener onItemClickListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView productName, productCategory, productQuantity, productPrice, productDate;
@@ -31,11 +33,20 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
             productDate =view.findViewById(R.id.product_date);
             viewProduct =  view.findViewById(R.id.view);
         }
+
+        public void bind(final Product product, final OnItemClickListener onItemClickListener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    onItemClickListener.onItemClick(product);
+                }
+            });
+        }
     }
 
 
-    public ProductsAdapter(ArrayList<Product> products) {
+    public ProductsAdapter(ArrayList<Product> products, OnItemClickListener onItemClickListener) {
         this.products = products;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -54,7 +65,10 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
         holder.productPrice.setText(product.getPrice().toString());
         holder.productDate.setText(product.getDateAdded());
         holder.productQuantity.setText(product.getQuantity().toString());
+
+        holder.bind(products.get(position), onItemClickListener);
     }
+
 
     @Override
     public int getItemCount() {

@@ -1,8 +1,9 @@
 package com.example.lastmyspaza.Shared.Models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Product {
+public class Product implements Serializable {
 
     private String productName;
     private String productCategory;
