@@ -53,31 +53,31 @@ public class AccountDetails extends Fragment {
         mEmail = view.findViewById(R.id.email);
         mPassword = view.findViewById(R.id.password);
         mConfirmPassword = view.findViewById(R.id.confirm_password);
-        mContinue = view.findViewById(R.id.button_continue);
+       // mContinue = view.findViewById(R.id.button_continue);
 
         managerDetails = new ManagerDetails();
         authentication = new Authentication(getContext());
         databaseIteration = new DatabaseIteration(getContext());
 
-        mContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                managerDetails.setEmail(mEmail.getText().toString());
-
-                authentication.CreateManagerAccount(managerDetails.getEmail(),mPassword.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if ( task.isSuccessful()){
-                                    String userId = authentication.GetCurrentUser().getUid();
-                                    addManagerRole(userId);
-                                }else
-                                {
-                                    Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }); }
-                });
+//        mContinue.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                managerDetails.setEmail(mEmail.getText().toString());
+//
+//                authentication.CreateManagerAccount(managerDetails.getEmail(),mPassword.getText().toString())
+//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                if ( task.isSuccessful()){
+//                                    String userId = authentication.GetCurrentUser().getUid();
+//                                    addManagerRole(userId);
+//                                }else
+//                                {
+//                                    Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
+//                                }
+//                            }
+//                        }); }
+//                });
 
         return view;
     }

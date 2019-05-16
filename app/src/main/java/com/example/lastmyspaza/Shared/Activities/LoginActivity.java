@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.Admin.AdminActivity;
@@ -37,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private EditText emailEditText;
     private EditText passwordEditText;
+    private TextView linkSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -46,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         //UI instances
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
+        linkSignUp = findViewById(R.id.link_signup);
         Button signInButton = findViewById(R.id.email_sign_in_button);
 
         emailEditText.setText("Admin@spaza.com");
@@ -61,6 +65,20 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +93,20 @@ public class LoginActivity extends AppCompatActivity {
                 AttemptUserLogin(email,password);
             }
         });
+
+        linkSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void AttemptUserLogin(String email, String password)
