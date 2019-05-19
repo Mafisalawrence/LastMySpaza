@@ -17,8 +17,7 @@ import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 
 public class PersonalDetails extends Fragment {
     private OnFragmentInteractionListener mListener;
-    private EditText mFirstName;
-    private EditText mLastName;
+
     private Button mContinue;
 
     public PersonalDetails() {
@@ -36,8 +35,7 @@ public class PersonalDetails extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_personal_details, container, false);
 
-        mFirstName = view.findViewById(R.id.first_name);
-        mLastName = view.findViewById(R.id.last_name);
+
         mContinue = view.findViewById(R.id.button_continue);
         
         final StoreDetails storeDetails = new StoreDetails();
@@ -48,8 +46,7 @@ public class PersonalDetails extends Fragment {
 
             @Override
             public void onClick(View v) {
-                    managerDetails.setFirstName(mFirstName.getText().toString());
-                    managerDetails.setLastName(mLastName.getText().toString());
+
 
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("managerDetails",managerDetails);

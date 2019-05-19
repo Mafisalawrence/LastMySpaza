@@ -48,7 +48,7 @@ public class StoreDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_strore_details, container, false);
         mStoreName = view.findViewById(R.id.store_name);
         mStoreLocation = view.findViewById(R.id.store_location);
-        mSignUp = view.findViewById(R.id.button_submit);
+        mSignUp = view.findViewById(R.id.add_storeDetails);
 
         authentication = new Authentication(getContext());
         databaseIteration = new DatabaseIteration(getContext());

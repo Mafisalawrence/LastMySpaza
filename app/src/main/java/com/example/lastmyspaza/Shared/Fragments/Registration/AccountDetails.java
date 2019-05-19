@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,8 @@ public class AccountDetails extends Fragment {
     private OnFragmentInteractionListener mListener;
     private EditText mEmail;
     private EditText mPassword;
-    private EditText mConfirmPassword;
+    private EditText mFirstName;
+    private EditText mLastName;
     private Authentication authentication;
     private ManagerDetails managerDetails;
     private DatabaseIteration databaseIteration;
@@ -52,9 +54,8 @@ public class AccountDetails extends Fragment {
 
         mEmail = view.findViewById(R.id.email);
         mPassword = view.findViewById(R.id.password);
-        mConfirmPassword = view.findViewById(R.id.confirm_password);
-       // mContinue = view.findViewById(R.id.button_continue);
-
+        mFirstName = view.findViewById(R.id.first_name);
+        mLastName = view.findViewById(R.id.last_name);
         managerDetails = new ManagerDetails();
         authentication = new Authentication(getContext());
         databaseIteration = new DatabaseIteration(getContext());
@@ -70,6 +71,8 @@ public class AccountDetails extends Fragment {
             @Override
             public void onClick(View v) {
                 managerDetails.setEmail(mEmail.getText().toString());
+                managerDetails.setFirstName(mFirstName.getText().toString());
+                managerDetails.setLastName(mLastName.getText().toString());
 
                 authentication.CreateManagerAccount(managerDetails.getEmail(),mPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -88,7 +91,7 @@ public class AccountDetails extends Fragment {
         mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                getActivity().onBackPressed();
             }
         });
         return view;
@@ -133,16 +136,25 @@ public class AccountDetails extends Fragment {
     }
 
     public void moveTONextFragment(String uid){
-        PersonalDetails personalDetails =  new PersonalDetails();
+        StoreDetails storeDetails =  new StoreDetails();
+        StoreList storeList = new StoreList();
+
         Bundle bundle =  new Bundle();
         bundle.putString("identifier",uid);
         bundle.putSerializable("managerDetails", managerDetails);
-        personalDetails.setArguments(bundle);
-        getFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, personalDetails )
-        .commit();
-        }
 
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+        if(managerDetails.getRole().equals(Roles.Admin.toString())){
+            storeList.setArguments(bundle);
+           fragmentTransaction.replace(R.id.fragment_container, storeList )
+           .commit();
+        }else{
+            storeDetails.setArguments(bundle);
+            fragmentTransaction.replace(R.id.fragment_container, storeDetails )
+            .commit();
+        }
+        }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

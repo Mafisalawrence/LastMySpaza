@@ -7,6 +7,7 @@ public class ManagerDetails implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
+    private String role;
     private String storeName;
     private String storeLocation;
 
@@ -46,6 +47,14 @@ public class ManagerDetails implements Serializable {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public ManagerDetails(){}
