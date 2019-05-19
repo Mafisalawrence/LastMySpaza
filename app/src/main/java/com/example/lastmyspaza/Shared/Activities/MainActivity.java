@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (user == null) {
             setContentView(R.layout.activity_main);
-            Button signUp = findViewById(R.id.signUp);
-            Button signIn = findViewById(R.id.signIn);
+            Button signUp = findViewById(R.id.right_button);
+            Button signIn = findViewById(R.id.left_button);
 
           signIn.setOnClickListener(new View.OnClickListener() {
             @Override

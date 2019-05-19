@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.Admin.Fragments.AccountFragment;
@@ -28,7 +29,6 @@ public class AccountDetails extends Fragment {
     private EditText mEmail;
     private EditText mPassword;
     private EditText mConfirmPassword;
-    private Button mContinue;
     private Authentication authentication;
     private ManagerDetails managerDetails;
     private DatabaseIteration databaseIteration;
@@ -59,26 +59,38 @@ public class AccountDetails extends Fragment {
         authentication = new Authentication(getContext());
         databaseIteration = new DatabaseIteration(getContext());
 
-//        mContinue.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                managerDetails.setEmail(mEmail.getText().toString());
-//
-//                authentication.CreateManagerAccount(managerDetails.getEmail(),mPassword.getText().toString())
-//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                if ( task.isSuccessful()){
-//                                    String userId = authentication.GetCurrentUser().getUid();
-//                                    addManagerRole(userId);
-//                                }else
-//                                {
-//                                    Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
-//                                }
-//                            }
-//                        }); }
-//                });
 
+        Button mCancel = view.findViewById(R.id.left_button);
+        Button mContinue = view.findViewById(R.id.right_button);
+        mCancel.setText("cancel");
+        mContinue.setText("continue");
+
+
+        mContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                managerDetails.setEmail(mEmail.getText().toString());
+
+                authentication.CreateManagerAccount(managerDetails.getEmail(),mPassword.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if ( task.isSuccessful()){
+                                    String userId = authentication.GetCurrentUser().getUid();
+                                    addManagerRole(userId);
+                                }else
+                                {
+                                    Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }); }
+                });
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return view;
     }
     public void addManagerRole(final String userID)
