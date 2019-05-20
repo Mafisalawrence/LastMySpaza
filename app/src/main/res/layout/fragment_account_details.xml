@@ -56,32 +56,31 @@
 
             <ImageView
                 android:id="@+id/owner_imageView"
-                android:layout_width="100dp"
-                android:layout_height="98dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/managers"
                 app:layout_constraintBottom_toTopOf="@+id/owner_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/owner_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:gravity="center"
                 android:text="Owner"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/owner_imageView"
                 app:layout_constraintTop_toBottomOf="@+id/owner_imageView" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/manager_container"
-            android:layout_width="119dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
@@ -92,8 +91,8 @@
 
             <ImageView
                 android:id="@+id/manager_imageView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/managers"
                 app:layout_constraintBottom_toTopOf="@+id/manager_text"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -103,8 +102,8 @@
                 android:id="@+id/manager_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
                 android:gravity="center"
                 android:text="Manager"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -150,7 +149,7 @@
                 android:paddingLeft="8dp" />
 
             <EditText
-                android:id="@+id/Last_name"
+                android:id="@+id/last_name"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

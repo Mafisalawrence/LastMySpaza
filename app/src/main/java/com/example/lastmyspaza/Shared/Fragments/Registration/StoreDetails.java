@@ -17,9 +17,13 @@ import com.example.lastmyspaza.Manager.Activities.ManagerActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
+import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
+import com.example.lastmyspaza.Shared.Models.Store;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.ArrayList;
 
 public class StoreDetails extends Fragment {
 
@@ -54,12 +58,37 @@ public class StoreDetails extends Fragment {
         databaseIteration = new DatabaseIteration(getContext());
         managerDetails = (ManagerDetails) getArguments().getSerializable("managerDetails");
 
+        Store store = (Store) getArguments().getSerializable("store");
+        if(store != null){
+            mStoreName.setText(store.getStoreName());
+            mStoreLocation.setText(store.getStoreLocation());
+        }
         mSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                managerDetails.setStoreName(mStoreName.getText().toString());
-                managerDetails.setStoreLocation(mStoreLocation.getText().toString());
-                addManagerDetailsToDb(getArguments().getString("identifier"));
+                //managerDetails.setStoreName(mStoreName.getText().toString());
+                //managerDetails.setStoreLocation(mStoreLocation.getText().toString());
+                String storeName = mStoreName.getText().toString();
+                String storeLocation = mStoreLocation.getText().toString();
+                Store store = new Store();
+                store.setStoreName(storeName);
+                store.setStoreLocation(storeLocation);
+             //   managerDetails.setStores(stores);
+
+                Bundle bundle =  new Bundle();
+                StoreList storeList =  new StoreList();
+
+                bundle.putSerializable("store", store);
+                storeList.setArguments(bundle);
+
+                getFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, storeList)
+                .commit();
+
+//                if(managerDetails.getRole().equals(Roles.Admin.toString())){
+//
+//                }
+                //addManagerDetailsToDb(getArguments().getString("identifier"));
             }
         });
         return view;

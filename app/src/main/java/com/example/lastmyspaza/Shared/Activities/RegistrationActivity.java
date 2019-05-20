@@ -39,7 +39,7 @@ public class RegistrationActivity extends AppCompatActivity implements AccountDe
         });
 
        getSupportFragmentManager().beginTransaction()
-         .replace(R.id.fragment_container, new AccountDetails()).commit();
+         .replace(R.id.fragment_container, new AccountDetails(), "one").commit();
 
     }
 

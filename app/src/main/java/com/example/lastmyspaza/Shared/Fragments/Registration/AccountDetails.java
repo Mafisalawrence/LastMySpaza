@@ -3,6 +3,7 @@ package com.example.lastmyspaza.Shared.Fragments.Registration;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +36,6 @@ public class AccountDetails extends Fragment {
     private Authentication authentication;
     private ManagerDetails managerDetails;
     private DatabaseIteration databaseIteration;
-
     public AccountDetails() {
         // Required empty public constructor
     }
@@ -60,6 +61,11 @@ public class AccountDetails extends Fragment {
         authentication = new Authentication(getContext());
         databaseIteration = new DatabaseIteration(getContext());
 
+        ImageView managerSelection= view.findViewById(R.id.manager_imageView);
+        ImageView ownerSelection =  view.findViewById(R.id.owner_imageView);
+        final TextView managerText = view.findViewById(R.id.manager_text);
+        final TextView ownerText = view.findViewById(R.id.owner_text);
+
 
         Button mCancel = view.findViewById(R.id.left_button);
         Button mContinue = view.findViewById(R.id.right_button);
@@ -74,26 +80,46 @@ public class AccountDetails extends Fragment {
                 managerDetails.setFirstName(mFirstName.getText().toString());
                 managerDetails.setLastName(mLastName.getText().toString());
 
-                authentication.CreateManagerAccount(managerDetails.getEmail(),mPassword.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if ( task.isSuccessful()){
-                                    String userId = authentication.GetCurrentUser().getUid();
-                                    addManagerRole(userId);
-                                }else
-                                {
-                                    Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }); }
-                });
+                moveTONextFragment();
+//                authentication.CreateManagerAccount(managerDetails.getEmail(),mPassword.getText().toString())
+//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                 if ( task.isSuccessful()){
+//                                    String userId = authentication.GetCurrentUser().getUid();
+//                                    addManagerRole(userId);
+//                                }else
+//                                {
+//                                    Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
+//                                }
+//                            }
+//                        });
+            }
+        });
+
+
         mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
             }
         });
+
+        managerSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                managerDetails.setRole(Roles.Manager.toString());
+                managerText.setTextColor(getResources().getColor(R.color.app_color_primary));
+            }
+        });
+        ownerSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                managerDetails.setRole(Roles.Admin.toString());
+                ownerText.setTextColor(getResources().getColor(R.color.app_color_primary));
+            }
+        });
+
         return view;
     }
     public void addManagerRole(final String userID)
@@ -103,7 +129,7 @@ public class AccountDetails extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            moveTONextFragment(userID);
+                           // moveTONextFragment(userID);
                         }else
                         {
                             Toast.makeText(getContext(),task.getException().toString(), Toast.LENGTH_LONG).show();
@@ -135,19 +161,18 @@ public class AccountDetails extends Fragment {
         mListener = null;
     }
 
-    public void moveTONextFragment(String uid){
+    public void moveTONextFragment(){
         StoreDetails storeDetails =  new StoreDetails();
         StoreList storeList = new StoreList();
 
         Bundle bundle =  new Bundle();
-        bundle.putString("identifier",uid);
         bundle.putSerializable("managerDetails", managerDetails);
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
         if(managerDetails.getRole().equals(Roles.Admin.toString())){
             storeList.setArguments(bundle);
-           fragmentTransaction.replace(R.id.fragment_container, storeList )
+            fragmentTransaction.replace(R.id.fragment_container, storeList )
            .commit();
         }else{
             storeDetails.setArguments(bundle);

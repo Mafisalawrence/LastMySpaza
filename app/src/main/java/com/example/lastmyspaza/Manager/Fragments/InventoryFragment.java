@@ -24,6 +24,7 @@ import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Interfaces.OnItemClickListener;
 import com.example.lastmyspaza.Shared.Models.Product;
+import com.example.lastmyspaza.Shared.Models.Store;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
@@ -52,6 +53,11 @@ public class InventoryFragment extends Fragment {
                 Intent intent  = new Intent(getActivity(), ProductDetailsActivity.class);
                 intent.putExtra("selectedProduct",product);
                 startActivity(intent);
+            }
+
+            @Override
+            public void onStoreItemClick(Store store) {
+
             }
         });
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
