@@ -3,6 +3,7 @@ package com.example.lastmyspaza.Shared.Fragments.Registration;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -144,7 +145,8 @@ public class StoreDetails extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful())
                         {
-                            Toast.makeText(getContext(),"Manager details added to db", Toast.LENGTH_LONG).show();
+                            //TODO SAVE ROLE IN SHARED Preferenceces and remove when logging out
+
                             Intent intent = new Intent(getActivity(), ManagerActivity.class);
                             startActivity(intent);
                         }

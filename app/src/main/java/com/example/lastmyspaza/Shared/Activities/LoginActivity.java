@@ -17,6 +17,8 @@ import com.example.lastmyspaza.Admin.AdminActivity;
 import com.example.lastmyspaza.Manager.Activities.ManagerActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Enums.Roles;
+import com.example.lastmyspaza.Shared.Models.ManagerDetails;
+import com.example.lastmyspaza.Shared.Models.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -52,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         linkSignUp = findViewById(R.id.link_signup);
         Button signInButton = findViewById(R.id.email_sign_in_button);
 
-        emailEditText.setText("Admin@spaza.com");
+        emailEditText.setText("test@manager.com");
         passwordEditText.setText("123456");
 
         //Fire base auth instance
@@ -143,12 +145,12 @@ public class LoginActivity extends AppCompatActivity {
 
     public void determineUserRole(String uid){
         Toast.makeText(LoginActivity.this,uid,Toast.LENGTH_LONG).show();
-        DatabaseReference ref = firebaseDatabase.getReference("roles").child(uid).child("roles");
+        DatabaseReference ref = firebaseDatabase.getReference("users").child(uid);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-             String role = dataSnapshot.getValue(String.class);
-             checkUserRole(role);
+                ManagerDetails managerDetails = dataSnapshot.getValue(ManagerDetails.class);
+             checkUserRole(managerDetails.getRole());
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -157,6 +159,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     public void checkUserRole(String role){
+        Toast.makeText(LoginActivity.this,role,Toast.LENGTH_LONG).show();
         if (role.equals(Roles.Admin.toString())){
             beginActivity(new AdminActivity());
         }else{

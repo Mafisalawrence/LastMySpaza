@@ -37,48 +37,35 @@ public class MainActivity extends AppCompatActivity {
         Authentication authentication = new Authentication(MainActivity.this);
         DatabaseIteration databaseIteration = new DatabaseIteration(MainActivity.this);
         FirebaseUser user = authentication.GetCurrentUser();
+        setContentView(R.layout.activity_main);
+        Button signUp = findViewById(R.id.right_button);
+        Button signIn = findViewById(R.id.left_button);
 
-        if (user == null) {
-            setContentView(R.layout.activity_main);
-            Button signUp = findViewById(R.id.right_button);
-            Button signIn = findViewById(R.id.left_button);
-
-          signIn.setOnClickListener(new View.OnClickListener() {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
-                public void onClick(View v) {
-                    loadActivity(new LoginActivity());
-        }
+            public void onClick(View v) {
+                loadActivity(new LoginActivity());
+            }
         });
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
-                public void onClick(View v) {
-                    loadActivity(new RegistrationActivity());
-        }
+            public void onClick(View v) {
+                loadActivity(new RegistrationActivity());
+            }
         });
-        }
-        else {
-            databaseIteration.getCurrentUserRole(user.getUid(), new OnGetDataListener() {
-                @Override
-                public void onStart() {
-                }
+//        if (user == null) {
+//
+//        }
+//        else {
+//            String currentUserRole = data.getValue(String.class);
+//            if (currentUserRole.equals(Roles.Admin.toString())) {
+//                loadActivity(new AdminActivity());
+//            } else if (currentUserRole.equals(Roles.Manager.toString())) {
+//                loadActivity(new ManagerActivity());
+//            }
 
-                @Override
-                public void onSuccess(DataSnapshot data) {
-                    Toast.makeText(MainActivity.this, data.getValue(String.class), Toast.LENGTH_LONG).show();
-                    String currentUserRole = data.getValue(String.class);
-                   if (currentUserRole.equals(Roles.Admin.toString())) {
-                    loadActivity(new AdminActivity());
-                    } else if (currentUserRole.equals(Roles.Manager.toString())) {
-                    loadActivity(new ManagerActivity());
-                    }
-                }
-                @Override
-                public void onFailed(DatabaseError databaseError) {
 
-                }
-            });
-        }
     }
 
 }
