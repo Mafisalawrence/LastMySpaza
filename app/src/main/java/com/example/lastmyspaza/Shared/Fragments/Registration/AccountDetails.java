@@ -1,5 +1,6 @@
 package com.example.lastmyspaza.Shared.Fragments.Registration;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
+import com.example.lastmyspaza.Shared.ViewModel.RegistrationAccountDetails;
+import com.example.lastmyspaza.Shared.ViewModel.StoreListViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,9 +36,8 @@ public class AccountDetails extends Fragment {
     private EditText mPassword;
     private EditText mFirstName;
     private EditText mLastName;
-    private Authentication authentication;
+    private RegistrationAccountDetails registrationAccountDetails;
     private ManagerDetails managerDetails;
-    private DatabaseIteration databaseIteration;
     public AccountDetails() {
         // Required empty public constructor
     }
@@ -57,21 +59,19 @@ public class AccountDetails extends Fragment {
         mPassword = view.findViewById(R.id.password);
         mFirstName = view.findViewById(R.id.first_name);
         mLastName = view.findViewById(R.id.last_name);
-        managerDetails = new ManagerDetails();
-        authentication = new Authentication(getContext());
-        databaseIteration = new DatabaseIteration(getContext());
+        mPassword = view.findViewById(R.id.password);
 
         ImageView managerSelection= view.findViewById(R.id.manager_imageView);
         ImageView ownerSelection =  view.findViewById(R.id.owner_imageView);
         final TextView managerText = view.findViewById(R.id.manager_text);
         final TextView ownerText = view.findViewById(R.id.owner_text);
 
-
         Button mCancel = view.findViewById(R.id.left_button);
         Button mContinue = view.findViewById(R.id.right_button);
         mCancel.setText("cancel");
         mContinue.setText("continue");
 
+        managerDetails = new ManagerDetails();
 
         mContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,20 +80,9 @@ public class AccountDetails extends Fragment {
                 managerDetails.setFirstName(mFirstName.getText().toString());
                 managerDetails.setLastName(mLastName.getText().toString());
 
+                setAccountDetails();
                 moveTONextFragment();
-//                authentication.CreateManagerAccount(managerDetails.getEmail(),mPassword.getText().toString())
-//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                 if ( task.isSuccessful()){
-//                                    String userId = authentication.GetCurrentUser().getUid();
-//                                    addManagerRole(userId);
-//                                }else
-//                                {
-//                                    Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
-//                                }
-//                            }
-//                        });
+
             }
         });
 
@@ -122,20 +111,11 @@ public class AccountDetails extends Fragment {
 
         return view;
     }
-    public void addManagerRole(final String userID)
-    {
-        databaseIteration.addRoleToDB(Roles.Manager.toString(),userID)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                           // moveTONextFragment(userID);
-                        }else
-                        {
-                            Toast.makeText(getContext(),task.getException().toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+
+    private void setAccountDetails(){
+        registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
+        registrationAccountDetails.setManagerDetails(managerDetails);
+        registrationAccountDetails.setPassword(mPassword.getText().toString());
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -162,21 +142,13 @@ public class AccountDetails extends Fragment {
     }
 
     public void moveTONextFragment(){
-        StoreDetails storeDetails =  new StoreDetails();
-        StoreList storeList = new StoreList();
-
-        Bundle bundle =  new Bundle();
-        bundle.putSerializable("managerDetails", managerDetails);
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-
         if(managerDetails.getRole().equals(Roles.Admin.toString())){
-            storeList.setArguments(bundle);
-            fragmentTransaction.replace(R.id.fragment_container, storeList )
+            fragmentTransaction.replace(R.id.fragment_container, new StoreList() , "storeList")
            .commit();
         }else{
-            storeDetails.setArguments(bundle);
-            fragmentTransaction.replace(R.id.fragment_container, storeDetails )
+            fragmentTransaction.replace(R.id.fragment_container, new StoreDetails() )
             .commit();
         }
         }

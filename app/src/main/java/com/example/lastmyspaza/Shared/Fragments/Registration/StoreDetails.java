@@ -1,11 +1,13 @@
 package com.example.lastmyspaza.Shared.Fragments.Registration;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +22,11 @@ import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.Models.Store;
+import com.example.lastmyspaza.Shared.ViewModel.RegistrationAccountDetails;
+import com.example.lastmyspaza.Shared.ViewModel.StoreListViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
 import java.util.ArrayList;
 
@@ -32,8 +37,13 @@ public class StoreDetails extends Fragment {
     private EditText mStoreLocation;
     private Button mSignUp;
     private DatabaseIteration databaseIteration;
-    private ManagerDetails managerDetails;
     private Authentication authentication;
+    private StoreListViewModel StoreListViewModel;
+    private ManagerDetails managerDetails;
+    private RegistrationAccountDetails registrationAccountDetails;
+    private String currentRole;
+    private ArrayList<Store> stores = new ArrayList<>();
+
 
     public StoreDetails() {
         // Required empty public constructor
@@ -56,39 +66,55 @@ public class StoreDetails extends Fragment {
 
         authentication = new Authentication(getContext());
         databaseIteration = new DatabaseIteration(getContext());
-        managerDetails = (ManagerDetails) getArguments().getSerializable("managerDetails");
 
-        Store store = (Store) getArguments().getSerializable("store");
+        registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
+        managerDetails = registrationAccountDetails.getManagerDetails();
+
+        final Store store = (Store) getArguments().getSerializable("store");
         if(store != null){
             mStoreName.setText(store.getStoreName());
             mStoreLocation.setText(store.getStoreLocation());
         }
+
+        if (managerDetails.getRole().equals(Roles.Admin.toString()))
+        {
+            currentRole = Roles.Admin.toString();
+            mSignUp.setText("Sign Up");
+        }
         mSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //managerDetails.setStoreName(mStoreName.getText().toString());
-                //managerDetails.setStoreLocation(mStoreLocation.getText().toString());
-                String storeName = mStoreName.getText().toString();
-                String storeLocation = mStoreLocation.getText().toString();
                 Store store = new Store();
-                store.setStoreName(storeName);
-                store.setStoreLocation(storeLocation);
-             //   managerDetails.setStores(stores);
+                store.setStoreName(mStoreName.getText().toString());
+                store.setStoreLocation(mStoreLocation.getText().toString());
 
-                Bundle bundle =  new Bundle();
-                StoreList storeList =  new StoreList();
+                if(currentRole.equals(Roles.Admin.toString()))
+                {
+                    StoreListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
+                    StoreListViewModel.setStore(store);
 
-                bundle.putSerializable("store", store);
-                storeList.setArguments(bundle);
-
-                getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, storeList)
-                .commit();
-
-//                if(managerDetails.getRole().equals(Roles.Admin.toString())){
-//
-//                }
-                //addManagerDetailsToDb(getArguments().getString("identifier"));
+                    FragmentManager fragmentManager =  getFragmentManager();
+                    fragmentManager.beginTransaction().remove(fragmentManager.findFragmentByTag("storeDetails"))
+                            .show( fragmentManager.findFragmentByTag("storeList"))
+                            .commit();
+                }
+                else{
+                    stores.add(store);
+                    managerDetails.setStores(stores);
+                    authentication.CreateManagerAccount(managerDetails.getEmail(),registrationAccountDetails.getPassword())
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if ( task.isSuccessful()){
+                                        String userId = authentication.GetCurrentUser().getUid();
+                                        addManagerDetailsToDb(userId);
+                                    }else
+                                    {
+                                        Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                }
             }
         });
         return view;
