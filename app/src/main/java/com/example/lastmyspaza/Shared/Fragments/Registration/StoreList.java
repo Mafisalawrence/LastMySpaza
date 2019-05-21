@@ -92,10 +92,7 @@ public class StoreList extends Fragment {
         StoreListViewModel.getStore().observe(this, new Observer<Store>() {
             @Override
             public void onChanged(@Nullable Store store) {
-                if (storeListAdapter.getItemCount()>0)
-                {
-                    done.setVisibility(View.VISIBLE);
-                }
+                done.setVisibility(View.VISIBLE);
                 stores.add(store);
                 storeListAdapter.notifyDataSetChanged();
             }

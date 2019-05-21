@@ -33,7 +33,7 @@ public class DatabaseIteration {
 
     public Task<Void> addManagerInformationToDb(String uid, ManagerDetails managerDetails)
     {
-        DatabaseReference myRef = firebaseDatabase.getReference("managers");
+        DatabaseReference myRef = firebaseDatabase.getReference("users");
          return myRef.child(uid).setValue(managerDetails);
     }
     public Task<Void> addProductDetailsToDb(String uid, Product productDetails)

@@ -41,7 +41,6 @@ public class StoreDetails extends Fragment {
     private StoreListViewModel StoreListViewModel;
     private ManagerDetails managerDetails;
     private RegistrationAccountDetails registrationAccountDetails;
-    private String currentRole;
     private ArrayList<Store> stores = new ArrayList<>();
 
 
@@ -70,15 +69,14 @@ public class StoreDetails extends Fragment {
         registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
         managerDetails = registrationAccountDetails.getManagerDetails();
 
-        final Store store = (Store) getArguments().getSerializable("store");
-        if(store != null){
-            mStoreName.setText(store.getStoreName());
-            mStoreLocation.setText(store.getStoreLocation());
-        }
+//        final Store store = (Store) getArguments().getSerializable("store");
+//        if(store != null){
+//            mStoreName.setText(store.getStoreName());
+//            mStoreLocation.setText(store.getStoreLocation());
+//        }
 
-        if (managerDetails.getRole().equals(Roles.Admin.toString()))
+        if (managerDetails.getRole().equals(Roles.Manager.toString()))
         {
-            currentRole = Roles.Admin.toString();
             mSignUp.setText("Sign Up");
         }
         mSignUp.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +86,7 @@ public class StoreDetails extends Fragment {
                 store.setStoreName(mStoreName.getText().toString());
                 store.setStoreLocation(mStoreLocation.getText().toString());
 
-                if(currentRole.equals(Roles.Admin.toString()))
+                if(managerDetails.getRole().equals(Roles.Admin.toString()))
                 {
                     StoreListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
                     StoreListViewModel.setStore(store);
