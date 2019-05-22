@@ -99,7 +99,6 @@ public class StoreDetails extends Fragment {
                 }
                 else{
                     stores.add(store);
-                    managerDetails.setStores(stores);
                     authentication.CreateManagerAccount(managerDetails.getEmail(),registrationAccountDetails.getPassword())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -156,6 +155,8 @@ public class StoreDetails extends Fragment {
                     }
                 });
     }
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

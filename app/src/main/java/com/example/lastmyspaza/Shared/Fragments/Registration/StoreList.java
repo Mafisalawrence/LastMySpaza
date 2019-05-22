@@ -113,13 +113,13 @@ public class StoreList extends Fragment {
             @Override
             public void onClick(View v) {
                 managerDetails = registrationAccountDetails.getManagerDetails();
-                managerDetails.setStores(stores);
                 authentication.CreateManagerAccount(managerDetails.getEmail(),registrationAccountDetails.getPassword())
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                  if ( task.isSuccessful()){
                                     String userId = authentication.GetCurrentUser().getUid();
+                                    addStoreDetailsToDb(userId);
                                     addManagerDetailsToDb(userId);
                                 }else
                                 {
@@ -131,6 +131,15 @@ public class StoreList extends Fragment {
         });
 
         return view;
+    }
+
+    private void addStoreDetailsToDb(String uid)
+    {
+        for(Store store : stores)
+        {
+            store.setStoreOwner(uid);
+        }
+        databaseIteration.addStoresDetailsToDb(stores);
     }
     public void addManagerDetailsToDb(String uid)
     {

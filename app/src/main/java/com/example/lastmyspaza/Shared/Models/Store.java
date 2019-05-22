@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 public class Store implements Serializable {
 
+    private String storeId;
     private String storeName;
     private String storeLocation;
     private String storeManager;
+    private String storeOwner;
 
     public String getStoreLocation() {
         return storeLocation;
@@ -32,4 +34,19 @@ public class Store implements Serializable {
         this.storeManager = storeManager;
     }
 
+    public String getStoreOwner() {
+        return storeOwner;
+    }
+
+    public void setStoreOwner(String storeOwner) {
+        this.storeOwner = storeOwner;
+    }
+
+    public String getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
+    }
 }

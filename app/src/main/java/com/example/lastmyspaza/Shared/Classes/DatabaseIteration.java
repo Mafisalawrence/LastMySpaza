@@ -4,10 +4,12 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.example.lastmyspaza.Shared.Fragments.Registration.StoreDetails;
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Models.Product;
+import com.example.lastmyspaza.Shared.Models.Store;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -15,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 public class DatabaseIteration {
@@ -36,16 +40,24 @@ public class DatabaseIteration {
         DatabaseReference myRef = firebaseDatabase.getReference("users");
          return myRef.child(uid).setValue(managerDetails);
     }
+    public void addStoresDetailsToDb(ArrayList<Store> stores){
+        DatabaseReference myRef = firebaseDatabase.getReference("stores");
+        for(Store store:stores)
+        {
+            myRef.child(myRef.push().getKey()).setValue(store);
+        }
+    }
+
     public Task<Void> addProductDetailsToDb(String uid, Product productDetails)
     {
         //TODO GET NUMBER OF PRODUCTS
         DatabaseReference myRef = firebaseDatabase.getReference("products");
-        return myRef.child(uid).child("product-4").setValue(productDetails);
+        return myRef.child(uid).child(myRef.push().getKey()).setValue(productDetails);
     }
     public Task<Void> deleteProductFromDb(String uid,Product product)
     {
         DatabaseReference myRef = firebaseDatabase.getReference("products");
-        return myRef.child(uid).child("product-4").removeValue();
+        return myRef.child(uid).child(myRef.push().getKey()).removeValue();
     }
 
     public void getCurrentUserRole(String uid, final OnGetDataListener listener){
@@ -65,6 +77,22 @@ public class DatabaseIteration {
         });
     }
 
+    public void getAllStoresOfOwner(String node, String uid, final OnGetDataListener listener){
+        listener.onStart();
+        DatabaseReference myRef = firebaseDatabase.getReference(node);
+        myRef.orderByChild("storeOwner").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listener.onSuccess(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onFailed(databaseError);
+            }
+        });
+
+    }
     public void getAccountDetailList(String node, final OnGetDataListener listener){
         listener.onStart();
         DatabaseReference myRef = firebaseDatabase.getReference(node);
