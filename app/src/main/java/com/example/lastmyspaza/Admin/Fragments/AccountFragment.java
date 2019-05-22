@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
+import com.example.lastmyspaza.Shared.Models.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
@@ -66,35 +68,18 @@ public class AccountFragment extends Fragment {
     private void prepareUserData() {
 
         DatabaseIteration dbIteration = new DatabaseIteration(this.getContext());
-        dbIteration.getAccountDetailList("managers", new OnGetDataListener() {
+        dbIteration.getAccountDetailList("users", new OnGetDataListener() {
             @Override
             public void onStart() {
-                //DO SOME THING WHEN START GET DATA HERE
             }
 
             @Override
             public void onSuccess(DataSnapshot data) {
-                //DO SOME THING WHEN GET DATA SUCCESS HERE
-                Map<String, Object> accountList = (Map<String, Object>) data.getValue();
-                String firstName;
-                String lastName;
-
-                String email;
-
-                String storeName;
-                String storeLocation;
-
-                for (Map.Entry<String, Object> entry : accountList.entrySet()){
-
-                    //Get user map
-                    Map singleAccount = (Map) entry.getValue();
-                    //Get phone field and append to list
-                    ManagerDetails manDetails = new ManagerDetails(singleAccount.get("firstName").toString(),
-                            singleAccount.get("lastName").toString(), singleAccount.get("email").toString(),
-                            singleAccount.get("storeName").toString(), singleAccount.get("storeLocation").toString());
-                    accList.add(manDetails);
-                }
-                userAdapter.notifyDataSetChanged();
+                Log.d("managerDetails", data.getValue().toString());
+                
+//                ManagerDetails managerDetails = data.getValue(ManagerDetails.class);
+//                accList.add(managerDetails);
+//                userAdapter.notifyDataSetChanged();
             }
 
             @Override

@@ -54,8 +54,8 @@ public class LoginActivity extends AppCompatActivity {
         linkSignUp = findViewById(R.id.link_signup);
         Button signInButton = findViewById(R.id.email_sign_in_button);
 
-        emailEditText.setText("test@manager.com");
-        passwordEditText.setText("123456");
+        emailEditText.setText("test@owner.com");
+        passwordEditText.setText("12345678");
 
         //Fire base auth instance
         try{
@@ -159,7 +159,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     public void checkUserRole(String role){
-        Toast.makeText(LoginActivity.this,role,Toast.LENGTH_LONG).show();
         if (role.equals(Roles.Admin.toString())){
             beginActivity(new AdminActivity());
         }else{
