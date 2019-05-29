@@ -13,12 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lastmyspaza.Admin.AdminActivity;
+import com.example.lastmyspaza.Owner.OwnerActivity;
 import com.example.lastmyspaza.Manager.Activities.ManagerActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
-import com.example.lastmyspaza.Shared.Models.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -160,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void checkUserRole(String role){
         if (role.equals(Roles.Admin.toString())){
-            beginActivity(new AdminActivity());
+            beginActivity(new OwnerActivity());
         }else{
             beginActivity(new ManagerActivity());
         }

@@ -5,15 +5,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.Manager.Activities.ManagerActivity;
@@ -21,6 +29,7 @@ import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.example.lastmyspaza.Shared.Enums.Roles;
+import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.Models.Store;
 import com.example.lastmyspaza.Shared.ViewModel.RegistrationAccountDetails;
@@ -28,8 +37,14 @@ import com.example.lastmyspaza.Shared.ViewModel.StoreListViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class StoreDetails extends Fragment {
 
@@ -37,12 +52,15 @@ public class StoreDetails extends Fragment {
     private EditText mStoreName;
     private EditText mStoreLocation;
     private Button mSignUp;
+    private AutoCompleteTextView autoCompleteTextView;
     private DatabaseIteration databaseIteration;
     private Authentication authentication;
     private StoreListViewModel StoreListViewModel;
     private ManagerDetails managerDetails;
     private RegistrationAccountDetails registrationAccountDetails;
     private ArrayList<Store> stores = new ArrayList<>();
+    private ArrayList<Store> storesFromDB = new ArrayList<>();
+    private  StoreAutoCompleteAdapter autoCompleteAdapter;
 
 
     public StoreDetails() {
@@ -53,33 +71,68 @@ public class StoreDetails extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_strore_details, container, false);
         mStoreName = view.findViewById(R.id.store_name);
         mStoreLocation = view.findViewById(R.id.store_location);
+        autoCompleteTextView = view.findViewById(R.id.autocompleteTextView);
         mSignUp = view.findViewById(R.id.add_storeDetails);
+        RelativeLayout autoSuggestWrapper = view.findViewById(R.id.auto_suggest_wrapper);
 
         authentication = new Authentication(getContext());
         databaseIteration = new DatabaseIteration(getContext());
-
         registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
         managerDetails = registrationAccountDetails.getManagerDetails();
-
-//        final Store store = (Store) getArguments().getSerializable("store");
-//        if(store != null){
-//            mStoreName.setText(store.getStoreName());
-//            mStoreLocation.setText(store.getStoreLocation());
-//        }
 
         if (managerDetails.getRole().equals(Roles.Manager.toString()))
         {
             mSignUp.setText("Sign Up");
+            mStoreName.setVisibility(View.GONE);
+            autoSuggestWrapper.setVisibility(View.VISIBLE);
         }
+
+        autoCompleteAdapter  =  new StoreAutoCompleteAdapter(getContext(),R.layout.store_list_item,storesFromDB);
+
+        databaseIteration.getAllStores("stores", new OnGetDataListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onSuccess(DataSnapshot data) {
+                for(DataSnapshot value : data.getChildren()) {
+                    Store store = value.getValue(Store.class);
+                    store.setStoreId(value.getKey());
+                    storesFromDB.add(store);
+                }
+                autoCompleteAdapter  =  new StoreAutoCompleteAdapter(getContext(),R.layout.store_list_item,storesFromDB);
+                autoCompleteTextView.setThreshold(1); //will start working from first character
+                autoCompleteTextView.setAdapter(autoCompleteAdapter);
+                autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Store store = (Store) adapterView.getItemAtPosition(i);
+                        mStoreLocation.setText(store.getStoreLocation());
+                        mStoreName.setText(store.getStoreName());
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(DatabaseError databaseError) {
+                Log.d(TAG,databaseError.toString());
+            }
+        });
+
+
         mSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,18 +174,13 @@ public class StoreDetails extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+
     }
 
 
@@ -152,6 +200,54 @@ public class StoreDetails extends Fragment {
                         else{
                             Toast.makeText(getContext(),"Failed to add manager details to db", Toast.LENGTH_LONG).show();
                         }
+                    }
+                });
+    }
+    public void getAllStores()
+    {
+        databaseIteration.getAllStores("stores", new OnGetDataListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onSuccess(DataSnapshot data) {
+                for(DataSnapshot value : data.getChildren()) {
+                    Store store = value.getValue(Store.class);
+                    store.setStoreId(value.getKey());
+                    //storesFromDB.add(store);
+                    autoCompleteAdapter.add(store);
+
+                }
+                autoCompleteAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailed(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+   public void autoCompleteTest(String text){
+        FirebaseDatabase.getInstance().getReference("stores")
+                .orderByChild("storeName").startAt(text).endAt(text + "\uf8ff").limitToFirst(5)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot value : dataSnapshot.getChildren()) {
+                            Store store = value.getValue(Store.class);
+                            store.setStoreId(value.getKey());
+                            storesFromDB.add(store);
+                        }
+                        autoCompleteAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
                     }
                 });
     }

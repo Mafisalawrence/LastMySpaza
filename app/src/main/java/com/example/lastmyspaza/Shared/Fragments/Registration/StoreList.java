@@ -16,8 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.lastmyspaza.Admin.AdminActivity;
-import com.example.lastmyspaza.Manager.Activities.ManagerActivity;
+import com.example.lastmyspaza.Owner.OwnerActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
@@ -149,7 +148,7 @@ public class StoreList extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful())
                         {
-                            Intent intent = new Intent(getActivity(), AdminActivity.class);
+                            Intent intent = new Intent(getActivity(), OwnerActivity.class);
                             startActivity(intent);
                         }
                         else{

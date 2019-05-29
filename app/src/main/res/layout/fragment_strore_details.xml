@@ -13,10 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/header"
@@ -50,10 +53,13 @@
             app:layout_constraintVertical_bias="0.0" />
 
     </android.support.constraint.ConstraintLayout>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginBottom="240dp"
@@ -61,14 +67,15 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/store_name"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Spaza name"
             android:layout_marginTop="20dp"
+            android:hint="Spaza name"
             android:inputType="textEmailAddress"
             android:paddingLeft="8dp"
             app:layout_constraintBottom_toTopOf="@+id/store_location"
@@ -77,16 +84,43 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/auto_suggest_wrapper"
+            android:paddingBottom="8dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/store_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/autocompleteTextView"
+                android:hint="spaza name"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:dropDownAnchor="@+id/auto_suggest_wrapper"
+                android:dropDownHeight="wrap_content"/>
+        </RelativeLayout>
+
+
         <EditText
             android:id="@+id/store_location"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Spaza location"
             android:layout_marginTop="20dp"
+            android:hint="Spaza location"
             android:paddingLeft="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/store_name" />
+
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/add_storeDetails"

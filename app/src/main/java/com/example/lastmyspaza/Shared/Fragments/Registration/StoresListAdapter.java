@@ -7,11 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Interfaces.OnStoreListLister;
-import com.example.lastmyspaza.Shared.Interfaces.OnItemClickListener;
 import com.example.lastmyspaza.Shared.Models.Store;
 
 import java.util.ArrayList;
@@ -27,7 +24,10 @@ public class StoresListAdapter extends  RecyclerView.Adapter<StoresListAdapter.M
         this.stores = stores;
         this.onStoreListLister = onStoreListLister;
     }
-
+    public StoresListAdapter(ArrayList<Store> stores)
+    {
+        this.stores = stores;
+    }
 
     @Override
     public int getItemCount() {

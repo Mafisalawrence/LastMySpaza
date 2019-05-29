@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.example.lastmyspaza.Admin.Fragments.AccountFragment;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Fragments.Registration.AccountDetails;
 import com.example.lastmyspaza.Shared.Fragments.Registration.PersonalDetails;

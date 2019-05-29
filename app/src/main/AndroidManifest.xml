@@ -23,7 +23,7 @@
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Admin.AdminActivity"
+            android:name=".Owner.OwnerActivity"
             android:label="@string/title_activity_admin" />
         <activity
             android:name=".Shared.Activities.LoginActivity"

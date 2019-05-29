@@ -1,24 +1,19 @@
-package com.example.lastmyspaza.Admin;
+package com.example.lastmyspaza.Owner;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.example.lastmyspaza.Admin.Fragments.AccountFragment;
-import com.example.lastmyspaza.Admin.Fragments.NotificationFragment;
-import com.example.lastmyspaza.Admin.Fragments.StatisticsFragment;
+import com.example.lastmyspaza.Owner.Fragments.StoresFragment;
+import com.example.lastmyspaza.Owner.Fragments.NotificationFragment;
+import com.example.lastmyspaza.Owner.Fragments.StatisticsFragment;
 import com.example.lastmyspaza.Manager.Fragments.SettingsFragment;
 import com.example.lastmyspaza.R;
 
-public class AdminActivity extends AppCompatActivity {
-
-
-    private TextView mTextMessage;
+public class OwnerActivity extends AppCompatActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -30,7 +25,7 @@ public class AdminActivity extends AppCompatActivity {
                     loadFragment(new StatisticsFragment());
                     return true;
                 case R.id.navigation_dashboard:
-                    loadFragment(new AccountFragment());
+                    loadFragment(new StoresFragment());
                     return true;
                 case R.id.navigation_notifications:
                     loadFragment(new NotificationFragment());
@@ -49,7 +44,7 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         loadFragment(new StatisticsFragment());
     }
@@ -59,5 +54,4 @@ public class AdminActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
-
 }

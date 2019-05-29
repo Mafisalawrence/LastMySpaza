@@ -93,6 +93,22 @@ public class DatabaseIteration {
         });
 
     }
+    public void getAllStores(String node, final OnGetDataListener listener){
+        listener.onStart();
+        DatabaseReference myRef = firebaseDatabase.getReference(node);
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listener.onSuccess(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onFailed(databaseError);
+            }
+        });
+
+    }
     public void getAccountDetailList(String node, final OnGetDataListener listener){
         listener.onStart();
         DatabaseReference myRef = firebaseDatabase.getReference(node);

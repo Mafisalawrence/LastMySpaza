@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.lastmyspaza.Admin.Fragments.NotificationFragment;
-import com.example.lastmyspaza.Admin.Fragments.StatisticsFragment;
+import com.example.lastmyspaza.Owner.Fragments.NotificationFragment;
+import com.example.lastmyspaza.Owner.Fragments.StatisticsFragment;
 import com.example.lastmyspaza.Manager.Fragments.InventoryFragment;
 import com.example.lastmyspaza.Manager.Fragments.SettingsFragment;
 import com.example.lastmyspaza.R;
