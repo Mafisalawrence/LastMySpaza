@@ -58,9 +58,9 @@ public class StoreDetails extends Fragment {
     private StoreListViewModel StoreListViewModel;
     private ManagerDetails managerDetails;
     private RegistrationAccountDetails registrationAccountDetails;
-    private ArrayList<Store> stores = new ArrayList<>();
     private ArrayList<Store> storesFromDB = new ArrayList<>();
     private  StoreAutoCompleteAdapter autoCompleteAdapter;
+    private Store registrationStore;
 
 
     public StoreDetails() {
@@ -119,9 +119,9 @@ public class StoreDetails extends Fragment {
                 autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Store store = (Store) adapterView.getItemAtPosition(i);
-                        mStoreLocation.setText(store.getStoreLocation());
-                        mStoreName.setText(store.getStoreName());
+                        registrationStore = (Store) adapterView.getItemAtPosition(i);
+                        mStoreLocation.setText(registrationStore.getStoreLocation());
+                        mStoreName.setText(registrationStore.getStoreName());
                     }
                 });
             }
@@ -151,13 +151,14 @@ public class StoreDetails extends Fragment {
                             .commit();
                 }
                 else{
-                    stores.add(store);
                     authentication.CreateManagerAccount(managerDetails.getEmail(),registrationAccountDetails.getPassword())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if ( task.isSuccessful()){
                                         String userId = authentication.GetCurrentUser().getUid();
+                                        registrationStore.setStoreManager(userId);
+                                        databaseIteration.addManagerToStore(userId,registrationStore);
                                         addManagerDetailsToDb(userId);
                                     }else
                                     {
@@ -229,27 +230,6 @@ public class StoreDetails extends Fragment {
             }
         });
 
-    }
-
-   public void autoCompleteTest(String text){
-        FirebaseDatabase.getInstance().getReference("stores")
-                .orderByChild("storeName").startAt(text).endAt(text + "\uf8ff").limitToFirst(5)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot value : dataSnapshot.getChildren()) {
-                            Store store = value.getValue(Store.class);
-                            store.setStoreId(value.getKey());
-                            storesFromDB.add(store);
-                        }
-                        autoCompleteAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
     }
 
 

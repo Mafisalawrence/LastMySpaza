@@ -47,6 +47,10 @@ public class DatabaseIteration {
             myRef.child(myRef.push().getKey()).setValue(store);
         }
     }
+    public void addManagerToStore(String uid,Store store){
+        DatabaseReference myRef = firebaseDatabase.getReference("stores");
+        myRef.child(store.getStoreId()+"/storeManger").setValue(store.getStoreManager());
+    }
 
     public Task<Void> addProductDetailsToDb(String uid, Product productDetails)
     {
