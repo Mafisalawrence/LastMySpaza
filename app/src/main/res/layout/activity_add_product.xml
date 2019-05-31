@@ -74,6 +74,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginBottom="24dp"
             android:padding="15dp"
+            android:textColor="#fff"
             android:text="Done"
             android:background="@drawable/button_background"/>
 

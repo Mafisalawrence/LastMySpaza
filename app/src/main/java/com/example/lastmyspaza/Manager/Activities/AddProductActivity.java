@@ -57,7 +57,7 @@ public class AddProductActivity extends Activity {
     {
         DatabaseIteration databaseIteration = new DatabaseIteration(AddProductActivity.this);
         authentication = new Authentication(AddProductActivity.this);
-        databaseIteration.addProductDetailsToDb(managerUid, product)
+        databaseIteration.addProductDetailsToDb(storeId, product)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -83,7 +83,6 @@ public class AddProductActivity extends Activity {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         productDetails.setDateAdded(formatter.format(calendar.getTime()));
-        productDetails.setStoreID(storeId);
         return productDetails;
     }
 

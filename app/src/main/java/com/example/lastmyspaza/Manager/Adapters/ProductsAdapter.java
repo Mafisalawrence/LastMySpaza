@@ -21,17 +21,15 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
     private OnItemClickListener onItemClickListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView productName, productCategory, productQuantity, productPrice, productDate;
-        public Button viewProduct;
+        public TextView productName, productQuantity, productPrice;
+        public Button sellProduct;
 
         public MyViewHolder(View view) {
             super(view);
             productName = view.findViewById(R.id.product_name);
-            productCategory = view.findViewById(R.id.product_category);
             productQuantity =  view.findViewById(R.id.product_quantity);
             productPrice =  view.findViewById(R.id.product_price);
-            productDate =view.findViewById(R.id.product_date);
-            viewProduct =  view.findViewById(R.id.view);
+            sellProduct =  view.findViewById(R.id.sell_product);
         }
 
         public void bind(final Product product, final OnItemClickListener onItemClickListener) {
@@ -61,9 +59,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Product product = products.get(position);
         holder.productName.setText(product.getProductName());
-        holder.productCategory.setText(product.getProductCategory());
         holder.productPrice.setText(product.getPrice().toString());
-        holder.productDate.setText(product.getDateAdded());
         holder.productQuantity.setText(product.getQuantity().toString());
 
         holder.bind(products.get(position), onItemClickListener);

@@ -57,11 +57,11 @@ public class DatabaseIteration {
         myRef.child(store.getStoreId()+"/storeManger").setValue(store.getStoreManager());
     }
 
-    public Task<Void> addProductDetailsToDb(String uid, Product productDetails)
+    public Task<Void> addProductDetailsToDb(String storeID, Product productDetails)
     {
         //TODO GET NUMBER OF PRODUCTS
         DatabaseReference myRef = firebaseDatabase.getReference("products");
-        return myRef.child(uid).child(myRef.push().getKey()).setValue(productDetails);
+        return myRef.child(storeID).child(myRef.push().getKey()).setValue(productDetails);
     }
     public Task<Void> deleteProductFromDb(String uid,Product product)
     {
@@ -149,9 +149,9 @@ public class DatabaseIteration {
                     }
                 });
     }
-    public void getAllProducts(String node, String uid, final OnGetDataListener listener){
+    public void getAllProducts(String node, String storeId, final OnGetDataListener listener){
         listener.onStart();
-        DatabaseReference myRef = firebaseDatabase.getReference(node).child(uid);
+        DatabaseReference myRef = firebaseDatabase.getReference(node).child(storeId);
                 myRef.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

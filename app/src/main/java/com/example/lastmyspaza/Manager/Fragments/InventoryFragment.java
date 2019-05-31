@@ -33,6 +33,8 @@ import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -41,8 +43,8 @@ public class InventoryFragment extends Fragment {
     private ProductsAdapter  productsAdapter;
     private ArrayList<Product> products = new ArrayList<>();
     private Button addProduct;
-    private String managerUid;
     private String managerStore;
+    private DatabaseIteration databaseIteration;
 
     public InventoryFragment() {
         // Required empty public constructor
@@ -92,13 +94,16 @@ public class InventoryFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        databaseIteration = new DatabaseIteration(getContext());
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("manager",MODE_PRIVATE);
+        managerStore = sharedPreferences.getString("managerStore",null);
         getProductAllProducts();
     }
 
     public void getProductAllProducts() {
-        DatabaseIteration databaseIteration = new DatabaseIteration(getContext());
-        String uid = new Authentication(getContext()).GetCurrentUser().getUid();
-        databaseIteration.getAllProducts("products", uid, new OnGetDataListener() {
+        Toast.makeText(getContext(),managerStore,Toast.LENGTH_LONG).show();
+        databaseIteration.getAllProducts("products", managerStore, new OnGetDataListener() {
             @Override
             public void onSuccess(DataSnapshot data) {
                 Product product = data.getValue(Product.class);
