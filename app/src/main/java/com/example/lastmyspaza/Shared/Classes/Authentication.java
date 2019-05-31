@@ -29,4 +29,9 @@ public class Authentication {
     public  void SignOutCurrentUser(){
         mAuth.signOut();
     }
+
+    public Task<AuthResult> SignInUser(String email, String password)
+    {
+        return mAuth.signInWithEmailAndPassword(email,password);
+    }
 }

@@ -5,11 +5,13 @@ import java.util.Date;
 
 public class Product implements Serializable {
 
+    private String id;
     private String productName;
     private String productCategory;
     private Integer quantity;
     private Double price;
     private String dateAdded;
+    private String storeID;
 
     public Product(){
 
@@ -20,6 +22,22 @@ public class Product implements Serializable {
         this.dateAdded = dateAdded;
         this.quantity = quantity;
         this.productCategory = productCategory;
+    }
+
+    public String getStoreID() {
+        return storeID;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setStoreID(String storeID) {
+        this.storeID = storeID;
     }
 
     public Integer getQuantity() {

@@ -51,9 +51,6 @@ public class ManagerActivity extends AppCompatActivity
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        //TODO Check if the are any product and display appropriate fragment
-       // loadFragment(new EmptyStateInventoryFragment());
         loadFragment(new InventoryFragment());
     }
     private void loadFragment(Fragment fragment){

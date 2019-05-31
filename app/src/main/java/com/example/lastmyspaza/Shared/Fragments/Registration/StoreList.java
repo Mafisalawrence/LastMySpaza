@@ -3,6 +3,7 @@ package com.example.lastmyspaza.Shared.Fragments.Registration;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.example.lastmyspaza.Owner.OwnerActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
+import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Interfaces.OnStoreListLister;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.Models.Store;
@@ -28,8 +31,12 @@ import com.example.lastmyspaza.Shared.ViewModel.StoreListViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +52,7 @@ public class StoreList extends Fragment {
     private Authentication authentication;
     private Button done;
     private Button addDetails;
+    private String currentUserId;
     public StoreList() {
         // Required empty public constructor
     }
@@ -91,12 +99,13 @@ public class StoreList extends Fragment {
         StoreListViewModel.getStore().observe(this, new Observer<Store>() {
             @Override
             public void onChanged(@Nullable Store store) {
-                done.setVisibility(View.VISIBLE);
+                if(currentUserId.isEmpty() && currentUserId != null)done.setVisibility(View.VISIBLE);
                 stores.add(store);
                 storeListAdapter.notifyDataSetChanged();
             }
         });
-
+        currentUserId = authentication.GetCurrentUser().getUid();
+        getAllStoresOFOwner(currentUserId);
 
         addDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +141,11 @@ public class StoreList extends Fragment {
         return view;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
     private void addStoreDetailsToDb(String uid)
     {
         for(Store store : stores)
@@ -156,6 +170,28 @@ public class StoreList extends Fragment {
                         }
                     }
                 });
+    }
+    private void getAllStoresOFOwner(String uid) {
+
+        DatabaseIteration dbIteration = new DatabaseIteration(this.getContext());
+        dbIteration.getAllStoresOfOwner("stores",uid, new OnGetDataListener() {
+            @Override
+            public void onStart() {
+            }
+
+            @Override
+            public void onSuccess(DataSnapshot data) {
+                for(DataSnapshot value : data.getChildren()) {
+                    Store store = value.getValue(Store.class);
+                    StoreListViewModel.setStore(store);
+                }
+            }
+
+            @Override
+            public void onFailed(DatabaseError databaseError) {
+                Log.d(TAG,databaseError.toString());
+            }
+        });
     }
 
 }

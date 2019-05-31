@@ -47,6 +47,11 @@ public class DatabaseIteration {
             myRef.child(myRef.push().getKey()).setValue(store);
         }
     }
+    public void addStoresDetailsToDb(Store store){
+        DatabaseReference myRef = firebaseDatabase.getReference("stores");
+        myRef.child(myRef.push().getKey()).setValue(store);
+
+    }
     public void addManagerToStore(String uid,Store store){
         DatabaseReference myRef = firebaseDatabase.getReference("stores");
         myRef.child(store.getStoreId()+"/storeManger").setValue(store.getStoreManager());
@@ -66,9 +71,23 @@ public class DatabaseIteration {
 
     public void getCurrentUserRole(String uid, final OnGetDataListener listener){
         listener.onStart();
-        DatabaseReference myRef =  firebaseDatabase.getReference("roles")
-                .child(uid).child("roles");
+        DatabaseReference myRef =  firebaseDatabase.getReference("users")
+                .child(uid).child("role");
         myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listener.onSuccess(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onFailed(databaseError);
+            }
+        });
+    }
+    public void getManagerStore(String uid, final OnGetDataListener listener){
+        DatabaseReference mRef = firebaseDatabase.getReference("stores");
+        mRef.orderByChild("storeManger").equalTo(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listener.onSuccess(dataSnapshot);

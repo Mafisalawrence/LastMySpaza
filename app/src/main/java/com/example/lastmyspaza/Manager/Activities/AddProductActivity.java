@@ -2,6 +2,7 @@ package com.example.lastmyspaza.Manager.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -29,6 +30,8 @@ public class AddProductActivity extends Activity {
     private EditText productQuantity;
     private Button addProduct;
     private Authentication authentication;
+    private String storeId;
+    private String managerUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,9 @@ public class AddProductActivity extends Activity {
 
         // Inflate the layout for this fragment
         initializeLayoutComponents();
+        SharedPreferences sharedPreferences = getSharedPreferences("manager",MODE_PRIVATE);
+        storeId = sharedPreferences.getString("managerStore",null);
+        managerUid =  sharedPreferences.getString("managerUid",null);
 
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +57,7 @@ public class AddProductActivity extends Activity {
     {
         DatabaseIteration databaseIteration = new DatabaseIteration(AddProductActivity.this);
         authentication = new Authentication(AddProductActivity.this);
-        String uid = authentication.GetCurrentUser().getUid();
-        databaseIteration.addProductDetailsToDb(uid, product)
+        databaseIteration.addProductDetailsToDb(managerUid, product)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -78,6 +83,7 @@ public class AddProductActivity extends Activity {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         productDetails.setDateAdded(formatter.format(calendar.getTime()));
+        productDetails.setStoreID(storeId);
         return productDetails;
     }
 

@@ -2,6 +2,8 @@ package com.example.lastmyspaza.Shared.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +18,10 @@ import android.widget.Toast;
 import com.example.lastmyspaza.Owner.OwnerActivity;
 import com.example.lastmyspaza.Manager.Activities.ManagerActivity;
 import com.example.lastmyspaza.R;
+import com.example.lastmyspaza.Shared.Classes.Authentication;
+import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.example.lastmyspaza.Shared.Enums.Roles;
+import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,11 +41,16 @@ import java.util.regex.Pattern;
 public class LoginActivity extends AppCompatActivity {
 
 
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase firebaseDatabase;
+    private Authentication authentication;
+    private DatabaseIteration databaseIteration;
     private EditText emailEditText;
     private EditText passwordEditText;
+    private Button signInButton;
     private TextView linkSignUp;
+    private String uid;
+    private String role;
+    private String storeID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -51,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
         linkSignUp = findViewById(R.id.link_signup);
-        Button signInButton = findViewById(R.id.email_sign_in_button);
+        signInButton = findViewById(R.id.email_sign_in_button);
 
         emailEditText.setText("test@owner.com");
         passwordEditText.setText("12345678");
@@ -64,8 +74,8 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("STE",e.toString());
         }
 
-        mAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseIteration = new DatabaseIteration(this);
+        authentication =  new Authentication(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -112,13 +122,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void AttemptUserLogin(String email, String password)
     {
-        mAuth.signInWithEmailAndPassword(email, password)
+        authentication.SignInUser(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser currentUser = mAuth.getCurrentUser();
-                            String uid = currentUser.getUid();
+                             uid = task.getResult().getUser().getUid();
                             determineUserRole(uid);
                         } else {
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
@@ -143,17 +152,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void determineUserRole(String uid){
-        Toast.makeText(LoginActivity.this,uid,Toast.LENGTH_LONG).show();
-        DatabaseReference ref = firebaseDatabase.getReference("users").child(uid);
-        ref.addValueEventListener(new ValueEventListener() {
+        databaseIteration.getCurrentUserRole(uid, new OnGetDataListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ManagerDetails managerDetails = dataSnapshot.getValue(ManagerDetails.class);
-             checkUserRole(managerDetails.getRole());
+            public void onStart() {
+
             }
+
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+            public void onSuccess(DataSnapshot data) {
+                role = data.getValue(String.class);
+                getManagerStore();
+            }
+
+            @Override
+            public void onFailed(DatabaseError databaseError) {
+                Log.d("User-role",databaseError.toString());
             }
         });
     }
@@ -163,5 +176,35 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             beginActivity(new ManagerActivity());
         }
+    }
+    public void getManagerStore(){
+        databaseIteration.getManagerStore(uid, new OnGetDataListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onSuccess(DataSnapshot data) {
+                for (DataSnapshot dataSnapshot: data.getChildren())
+                {
+                    storeID = dataSnapshot.getKey();
+                }
+                storeDetailsInSharedPreference();
+                checkUserRole(role);
+            }
+
+            @Override
+            public void onFailed(DatabaseError databaseError) {
+                Log.d("Manager store",databaseError.toString());
+            }
+        });
+    }
+    public void storeDetailsInSharedPreference(){
+        SharedPreferences sharedPreferences =  getApplicationContext().getSharedPreferences("manager",MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+        editor.putString("managerUid",uid);
+        editor.putString("managerStore",storeID);
+        editor.commit();
     }
 }

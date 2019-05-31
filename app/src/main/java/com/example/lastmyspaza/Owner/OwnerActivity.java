@@ -12,6 +12,7 @@ import com.example.lastmyspaza.Owner.Fragments.NotificationFragment;
 import com.example.lastmyspaza.Owner.Fragments.StatisticsFragment;
 import com.example.lastmyspaza.Manager.Fragments.SettingsFragment;
 import com.example.lastmyspaza.R;
+import com.example.lastmyspaza.Shared.Fragments.Registration.StoreList;
 
 public class OwnerActivity extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class OwnerActivity extends AppCompatActivity {
                     loadFragment(new StatisticsFragment());
                     return true;
                 case R.id.navigation_dashboard:
-                    loadFragment(new StoresFragment());
+                    loadFragment(new StoreList());
                     return true;
                 case R.id.navigation_notifications:
                     loadFragment(new NotificationFragment());

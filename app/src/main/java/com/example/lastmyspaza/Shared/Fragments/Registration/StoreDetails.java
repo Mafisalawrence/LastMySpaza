@@ -52,6 +52,7 @@ public class StoreDetails extends Fragment {
     private EditText mStoreName;
     private EditText mStoreLocation;
     private Button mSignUp;
+    private RelativeLayout autoSuggestWrapper;
     private AutoCompleteTextView autoCompleteTextView;
     private DatabaseIteration databaseIteration;
     private Authentication authentication;
@@ -61,7 +62,7 @@ public class StoreDetails extends Fragment {
     private ArrayList<Store> storesFromDB = new ArrayList<>();
     private  StoreAutoCompleteAdapter autoCompleteAdapter;
     private Store registrationStore;
-
+    private String currentUserRole;
 
     public StoreDetails() {
         // Required empty public constructor
@@ -80,11 +81,8 @@ public class StoreDetails extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_strore_details, container, false);
-        mStoreName = view.findViewById(R.id.store_name);
-        mStoreLocation = view.findViewById(R.id.store_location);
-        autoCompleteTextView = view.findViewById(R.id.autocompleteTextView);
-        mSignUp = view.findViewById(R.id.add_storeDetails);
-        RelativeLayout autoSuggestWrapper = view.findViewById(R.id.auto_suggest_wrapper);
+        loadUIComponents(view);
+
 
         authentication = new Authentication(getContext());
         databaseIteration = new DatabaseIteration(getContext());
@@ -170,6 +168,15 @@ public class StoreDetails extends Fragment {
             }
         });
         return view;
+    }
+
+    private void loadUIComponents(View view)
+    {
+        mStoreName = view.findViewById(R.id.store_name);
+        mStoreLocation = view.findViewById(R.id.store_location);
+        autoCompleteTextView = view.findViewById(R.id.autocompleteTextView);
+        mSignUp = view.findViewById(R.id.add_storeDetails);
+        autoSuggestWrapper = view.findViewById(R.id.auto_suggest_wrapper);
     }
 
     @Override
