@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#ab47bc</color>
+    <color name="colorPrimaryDark">#790e8b</color>
+    <color name="colorAccent">#df78ef</color>
     <color name="year">#999999</color>
-    <color name="title">#222222</color>
+    <!--<color name="title">#222222</color>-->
     // app colors
 
-    <color name="app_color_primary">#3498DB</color>
+    <!--<color name="app_color_primary">#3498DB</color>-->
 </resources>
