@@ -37,4 +37,10 @@
         <item name="cornerSize">@dimen/button_corner_radius</item>
     </style>
 
+                    <!--TEXTFIELD-->
+    <style name="Widget.MaterialComponents.Custom.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">@dimen/button_width</item>
+        <item name="android:layout_marginBottom">@dimen/text_margin_bottom</item>
+    </style>
+
 </resources>

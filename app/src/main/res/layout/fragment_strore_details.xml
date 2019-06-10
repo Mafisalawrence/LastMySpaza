@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout4"
@@ -8,7 +8,7 @@
     tools:context=".Shared.Fragments.Registration.PersonalDetails">
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,9 +52,9 @@
             app:layout_constraintTop_toBottomOf="@+id/header"
             app:layout_constraintVertical_bias="0.0" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,80 +62,100 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
-        android:layout_marginBottom="240dp"
+        android:layout_marginBottom="204dp"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/store_name"
-            android:layout_width="300dp"
+            style="@style/Widget.MaterialComponents.Custom.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Spaza name"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/store_location"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/input_store_name"
+            app:layout_constraintBottom_toTopOf="@id/store_location"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <RelativeLayout
+            android:id="@+id/auto_suggest_wrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/auto_suggest_wrapper"
             android:paddingBottom="8dp"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/store_location"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/autocompleteTextView"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/autocompleteTextView"
-                android:hint="spaza name"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:dropDownAnchor="@+id/auto_suggest_wrapper"
-                android:dropDownHeight="wrap_content"/>
+                android:dropDownHeight="wrap_content"
+                android:hint="spaza name" />
         </RelativeLayout>
 
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/store_location"
-            android:layout_width="300dp"
+            style="@style/Widget.MaterialComponents.Custom.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Spaza location"
-            android:paddingLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="40dp"
+            android:hint="@string/input_store_location"
+            app:endIconDrawable="@drawable/ic_location_on_black_24dp"
+            app:endIconMode="custom"
+            app:layout_constraintBottom_toTopOf="@id/email_sign_in_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/store_name" />
+            app:layout_constraintStart_toStartOf="parent">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/add_storeDetails"
-            android:layout_width="300dp"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/email_sign_in_button"
+            style="@style/Widget.Custom.MaterialComponents.Button"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/button_background"
-            android:text="Done"
-            android:textColor="#fff"
+            android:text="@string/action_sign_up"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.458"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/store_location" />
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
-</android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
