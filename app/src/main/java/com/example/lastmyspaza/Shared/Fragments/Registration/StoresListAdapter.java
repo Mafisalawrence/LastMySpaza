@@ -1,7 +1,5 @@
 package com.example.lastmyspaza.Shared.Fragments.Registration;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +11,9 @@ import com.example.lastmyspaza.Shared.Models.Store;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class StoresListAdapter extends  RecyclerView.Adapter<StoresListAdapter.MyViewHolder> {
@@ -78,7 +79,7 @@ public class StoresListAdapter extends  RecyclerView.Adapter<StoresListAdapter.M
             storeName = view.findViewById(R.id.store_name);
             storeLocation = view.findViewById(R.id.store_location);
 
-            edit = view.findViewById(R.id.edit);
+//            edit = view.findViewById(R.id.edit);
             delete = view.findViewById(R.id.delete);
         }
     }

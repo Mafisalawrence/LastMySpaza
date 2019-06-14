@@ -1,9 +1,6 @@
 package com.example.lastmyspaza.Shared.Classes;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.example.lastmyspaza.Shared.Fragments.Registration.StoreDetails;
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
@@ -19,6 +16,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 
 public class DatabaseIteration {

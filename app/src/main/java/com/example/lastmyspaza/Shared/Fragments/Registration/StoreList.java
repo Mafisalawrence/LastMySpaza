@@ -1,16 +1,9 @@
 package com.example.lastmyspaza.Shared.Fragments.Registration;
 
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +28,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 
 import static android.content.ContentValues.TAG;
 
@@ -65,8 +64,8 @@ public class StoreList extends Fragment {
         addDetails = view.findViewById(R.id.add_storeDetails);
         done = view.findViewById(R.id.done);
 
-        StoreListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
-        registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
+       // StoreListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
+        //registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
         managerDetails = registrationAccountDetails.getManagerDetails();
         databaseIteration = new DatabaseIteration(getContext());
         authentication =  new Authentication(getContext());
@@ -91,19 +90,19 @@ public class StoreList extends Fragment {
             }
         });
 
-        EmptyRecyclerView list = view.findViewById(R.id.store_list);
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
-        list.setEmptyView(view.findViewById(R.id.empty_list));
-        list.setAdapter(storeListAdapter);
-
-        StoreListViewModel.getStore().observe(this, new Observer<Store>() {
-            @Override
-            public void onChanged(@Nullable Store store) {
-                if(currentUserId.isEmpty() && currentUserId != null)done.setVisibility(View.VISIBLE);
-                stores.add(store);
-                storeListAdapter.notifyDataSetChanged();
-            }
-        });
+//        EmptyRecyclerView list = view.findViewById(R.id.store_list);
+//        list.setLayoutManager(new LinearLayoutManager(getContext()));
+//        list.setEmptyView(view.findViewById(R.id.empty_list));
+//        list.setAdapter(storeListAdapter);
+//
+//        StoreListViewModel.getStore().observe(this, new Observer<Store>() {
+//            @Override
+//            public void onChanged(@Nullable Store store) {
+//                if(currentUserId.isEmpty() && currentUserId != null)done.setVisibility(View.VISIBLE);
+//                stores.add(store);
+//                storeListAdapter.notifyDataSetChanged();
+//            }
+//        });
         currentUserId = authentication.GetCurrentUser().getUid();
         getAllStoresOFOwner(currentUserId);
 

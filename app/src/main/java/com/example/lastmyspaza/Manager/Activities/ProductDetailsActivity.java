@@ -1,7 +1,5 @@
 package com.example.lastmyspaza.Manager.Activities;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +13,9 @@ import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.example.lastmyspaza.Shared.Models.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ProductDetailsActivity extends AppCompatActivity {
 

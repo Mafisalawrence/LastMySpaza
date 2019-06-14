@@ -1,6 +1,6 @@
 package com.example.lastmyspaza.Manager.Adapters;
 
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,8 @@ import com.example.lastmyspaza.Shared.Models.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyViewHolder> {
 

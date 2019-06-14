@@ -3,7 +3,6 @@ package com.example.lastmyspaza.Shared.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,6 +10,8 @@ import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.google.firebase.auth.FirebaseUser;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 

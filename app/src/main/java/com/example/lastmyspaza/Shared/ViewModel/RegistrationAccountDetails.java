@@ -1,10 +1,9 @@
 package com.example.lastmyspaza.Shared.ViewModel;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.Models.Store;
+
+import androidx.lifecycle.ViewModel;
 
 public class RegistrationAccountDetails extends ViewModel {
     private ManagerDetails managerDetails = new ManagerDetails();

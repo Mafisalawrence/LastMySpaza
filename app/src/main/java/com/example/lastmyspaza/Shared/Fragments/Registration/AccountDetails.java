@@ -1,11 +1,8 @@
 package com.example.lastmyspaza.Shared.Fragments.Registration;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +15,9 @@ import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.ViewModel.RegistrationAccountDetails;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class AccountDetails extends Fragment {
 
@@ -84,26 +84,26 @@ public class AccountDetails extends Fragment {
             }
         });
 
-        managerSelection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                managerDetails.setRole(Roles.Manager.toString());
-                managerText.setTextColor(getResources().getColor(R.color.app_color_primary));
-            }
-        });
-        ownerSelection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                managerDetails.setRole(Roles.Admin.toString());
-                ownerText.setTextColor(getResources().getColor(R.color.app_color_primary));
-            }
-        });
+//        managerSelection.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                managerDetails.setRole(Roles.Manager.toString());
+//                managerText.setTextColor(getResources().getColor(R.color.app_color_primary));
+//            }
+//        });
+//        ownerSelection.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                managerDetails.setRole(Roles.Admin.toString());
+//                ownerText.setTextColor(getResources().getColor(R.color.app_color_primary));
+//            }
+//        });
 
         return view;
     }
 
     private void setAccountDetails(){
-        registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
+       // registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
         registrationAccountDetails.setManagerDetails(managerDetails);
         registrationAccountDetails.setPassword(mPassword.getText().toString());
     }

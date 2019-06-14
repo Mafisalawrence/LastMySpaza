@@ -1,10 +1,6 @@
 package com.example.lastmyspaza.Owner;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.example.lastmyspaza.Owner.Fragments.StoresFragment;
@@ -13,6 +9,11 @@ import com.example.lastmyspaza.Owner.Fragments.StatisticsFragment;
 import com.example.lastmyspaza.Manager.Fragments.SettingsFragment;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Fragments.Registration.StoreList;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 public class OwnerActivity extends AppCompatActivity {
 

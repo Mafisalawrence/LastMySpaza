@@ -1,15 +1,11 @@
 package com.example.lastmyspaza.Shared.Fragments.Registration;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -43,6 +39,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import static android.content.ContentValues.TAG;
 
@@ -86,7 +86,7 @@ public class StoreDetails extends Fragment {
 
         authentication = new Authentication(getContext());
         databaseIteration = new DatabaseIteration(getContext());
-        registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
+        //registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
         managerDetails = registrationAccountDetails.getManagerDetails();
 
         if (managerDetails.getRole().equals(Roles.Manager.toString()))
@@ -140,7 +140,7 @@ public class StoreDetails extends Fragment {
 
                 if(managerDetails.getRole().equals(Roles.Admin.toString()))
                 {
-                    StoreListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
+                    //StoreListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
                     StoreListViewModel.setStore(store);
 
                     FragmentManager fragmentManager =  getFragmentManager();

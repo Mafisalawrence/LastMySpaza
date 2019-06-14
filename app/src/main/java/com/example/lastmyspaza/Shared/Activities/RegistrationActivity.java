@@ -2,14 +2,15 @@ package com.example.lastmyspaza.Shared.Activities;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Fragments.Registration.AccountDetails;
 import com.example.lastmyspaza.Shared.Fragments.Registration.PersonalDetails;
 import com.example.lastmyspaza.Shared.Fragments.Registration.StoreDetails;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class RegistrationActivity extends AppCompatActivity implements AccountDetails.OnFragmentInteractionListener,
         PersonalDetails.OnFragmentInteractionListener,

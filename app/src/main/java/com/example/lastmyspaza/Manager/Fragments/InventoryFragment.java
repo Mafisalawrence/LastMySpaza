@@ -5,11 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +16,6 @@ import com.example.lastmyspaza.Manager.Adapters.ProductsAdapter;
 import com.example.lastmyspaza.Manager.Activities.AddProductActivity;
 import com.example.lastmyspaza.Manager.Activities.ProductDetailsActivity;
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.example.lastmyspaza.Shared.Fragments.Registration.EmptyRecyclerView;
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
@@ -32,6 +26,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import static android.content.Context.MODE_PRIVATE;
 
