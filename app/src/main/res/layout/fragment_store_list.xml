@@ -8,7 +8,7 @@
     tools:context=".Shared.Fragments.Registration.StoreList">
 
     <!-- TODO: Update blank fragment layout -->
-    <com.example.lastmyspaza.Shared.Fragments.Registration.EmptyRecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/store_list"
         android:layout_width="match_parent"
         android:layout_height="555dp"
