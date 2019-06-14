@@ -1,47 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="20dp"
-    android:background="@drawable/store_list_item"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/linearLayout6"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing">
 
         <ImageView
             android:id="@+id/list_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
             android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_store_black_24dp" />
+            app:srcCompat="@drawable/store_list_item" />
+
 
         <TextView
             android:id="@+id/store_name"
             android:layout_width="150dp"
             android:layout_height="26dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
+            android:textAppearance="@style/TextAppearance.Title"
             android:text="test"
-            android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/list_icon"
             app:layout_constraintTop_toTopOf="parent" />
@@ -50,11 +45,11 @@
             android:id="@+id/store_location"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginBottom="16dp"
             android:text="test"
-            android:textSize="15dp"
+            android:textAppearance="@style/TextAppearance.SubTitle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/list_icon"
             app:layout_constraintTop_toBottomOf="@id/store_name"
@@ -62,32 +57,22 @@
 
         <ImageView
             android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.846"
+            app:layout_constraintStart_toEndOf="@+id/store_name"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.483"
             app:srcCompat="@drawable/ic_delete_black_24dp" />
 
-        <ImageView
-            android:id="@+id/edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/delete"
-            app:layout_constraintHorizontal_bias="0.426"
-            app:layout_constraintStart_toEndOf="@id/store_location"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_edit_black_24dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </android.support.constraint.ConstraintLayout>
-
-</android.support.constraint.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -43,4 +43,13 @@
         <item name="android:layout_marginBottom">@dimen/text_margin_bottom</item>
     </style>
 
+                    <!--CardView-->
+    <style name="TextAppearance_Title">
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextAppearance_SubTitle">
+        <item name="android:textSize">@dimen/text_sub_title</item>
+    </style>
 </resources>
