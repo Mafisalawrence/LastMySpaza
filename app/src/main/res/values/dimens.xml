@@ -12,7 +12,7 @@
 
     <!---TextField-->
     <dimen name="text_margin_bottom">8dp</dimen>
-
+    <dimen name="quantity_text_width">70dp</dimen>
     <!--CardView-->
     <dimen name="text_title">16dp</dimen>
     <dimen name="text_sub_title">14dp</dimen>

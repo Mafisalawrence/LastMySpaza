@@ -12,6 +12,7 @@
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Login</string>
     <string name="action_sign_up">Register</string>
+    <string name="action_add_product">Add Product</string>
 <string name="action_add_spaza">Add Spaza</string>
     <string name="action_done">Done</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -35,6 +36,12 @@
     <!--Spaza Details-->
     <string name="input_store_name">Spaza Name</string>
     <string name="input_store_location">Spaza Location</string>
+
+    <!--Product-->
+    <string name="input_product_name">Product Name</string>
+    <string name="input_product_category">Product Category</string>
+    <string name="input_product_price">Product Price</string>
+    <string name="input_product_quantity">Product Quantity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

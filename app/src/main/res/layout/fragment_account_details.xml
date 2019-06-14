@@ -234,7 +234,7 @@
             android:layout_marginRight="8dp"
             android:hint="@string/input_password"
             app:endIconMode="password_toggle"
-            app:layout_constraintBottom_toTopOf="@id/email_sign_in_button"
+            app:layout_constraintBottom_toTopOf="@id/button_continue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -247,7 +247,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/email_sign_in_button"
+            android:id="@+id/button_continue"
             style="@style/Widget.Custom.MaterialComponents.ButtonOutLine"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

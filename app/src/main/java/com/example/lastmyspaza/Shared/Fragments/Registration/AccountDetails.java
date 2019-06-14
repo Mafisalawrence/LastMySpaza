@@ -51,15 +51,12 @@ public class AccountDetails extends Fragment {
         mLastName = view.findViewById(R.id.last_name);
         mPassword = view.findViewById(R.id.password);
 
-        ImageView managerSelection= view.findViewById(R.id.manager_imageView);
+        final ImageView managerSelection= view.findViewById(R.id.manager_imageView);
         ImageView ownerSelection =  view.findViewById(R.id.owner_imageView);
         final TextView managerText = view.findViewById(R.id.manager_text);
         final TextView ownerText = view.findViewById(R.id.owner_text);
 
-        Button mCancel = view.findViewById(R.id.left_button);
-        Button mContinue = view.findViewById(R.id.right_button);
-        mCancel.setText("cancel");
-        mContinue.setText("continue");
+        Button mContinue = view.findViewById(R.id.button_continue);
 
         managerDetails = new ManagerDetails();
 
@@ -77,27 +74,20 @@ public class AccountDetails extends Fragment {
         });
 
 
-        mCancel.setOnClickListener(new View.OnClickListener() {
+        managerSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().onBackPressed();
+                managerDetails.setRole(Roles.Manager.toString());
+                managerText.setTextColor(getResources().getColor(R.color.colorPrimary));
             }
         });
-
-//        managerSelection.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                managerDetails.setRole(Roles.Manager.toString());
-//                managerText.setTextColor(getResources().getColor(R.color.app_color_primary));
-//            }
-//        });
-//        ownerSelection.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                managerDetails.setRole(Roles.Admin.toString());
-//                ownerText.setTextColor(getResources().getColor(R.color.app_color_primary));
-//            }
-//        });
+        ownerSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                managerDetails.setRole(Roles.Admin.toString());
+                ownerText.setTextColor(getResources().getColor(R.color.colorPrimary));
+            }
+        });
 
         return view;
     }
