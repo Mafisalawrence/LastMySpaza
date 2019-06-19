@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         Button signInButton = findViewById(R.id.email_sign_in_button);
 
-        emailEditText.setText("Admin@spaza.com");
+        emailEditText.setText("man4@manager.com");
         passwordEditText.setText("123456");
 
         //Fire base auth instance
