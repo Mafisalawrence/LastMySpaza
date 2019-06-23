@@ -7,5 +7,4 @@ import com.example.lastmyspaza.Shared.Models.Store;
 public interface OnStoreListLister
 {
     void deleteItem(Store store, int i);
-    void editItem(Store store);
 }

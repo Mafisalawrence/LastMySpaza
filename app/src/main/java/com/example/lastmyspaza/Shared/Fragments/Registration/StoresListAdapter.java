@@ -54,13 +54,7 @@ public class StoresListAdapter extends  RecyclerView.Adapter<StoresListAdapter.M
         Store store = stores.get(i);
         myViewHolder.storeName.setText(store.getStoreName());
         myViewHolder.storeLocation.setText(store.getStoreLocation());
-        myViewHolder.edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onStoreListLister.editItem(stores.get(i));
 
-            }
-        });
         myViewHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,14 +66,12 @@ public class StoresListAdapter extends  RecyclerView.Adapter<StoresListAdapter.M
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView storeName, storeLocation;
-        public ImageView edit, delete;
+        public ImageView delete;
 
         public MyViewHolder(View view) {
             super(view);
             storeName = view.findViewById(R.id.store_name);
             storeLocation = view.findViewById(R.id.store_location);
-
-//            edit = view.findViewById(R.id.edit);
             delete = view.findViewById(R.id.delete);
         }
     }

@@ -15,6 +15,7 @@ import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Enums.Roles;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.ViewModel.RegistrationAccountDetails;
+import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,10 +23,11 @@ import androidx.fragment.app.FragmentTransaction;
 public class AccountDetails extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-    private EditText mEmail;
-    private EditText mPassword;
-    private EditText mFirstName;
-    private EditText mLastName;
+    private TextInputLayout mEmail;
+    private TextInputLayout mPassword;
+    private TextInputLayout mFirstName;
+    private TextInputLayout mLastName;
+
     private RegistrationAccountDetails registrationAccountDetails;
     private ManagerDetails managerDetails;
     public AccountDetails() {
@@ -63,9 +65,9 @@ public class AccountDetails extends Fragment {
         mContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                managerDetails.setEmail(mEmail.getText().toString());
-                managerDetails.setFirstName(mFirstName.getText().toString());
-                managerDetails.setLastName(mLastName.getText().toString());
+                managerDetails.setEmail(mEmail.getEditText().getText().toString());
+                managerDetails.setFirstName(mFirstName.getEditText().getText().toString());
+                managerDetails.setLastName(mLastName.getEditText().getText().toString());
 
                 setAccountDetails();
                 moveTONextFragment();
@@ -95,7 +97,7 @@ public class AccountDetails extends Fragment {
     private void setAccountDetails(){
        // registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
         registrationAccountDetails.setManagerDetails(managerDetails);
-        registrationAccountDetails.setPassword(mPassword.getText().toString());
+        registrationAccountDetails.setPassword(mPassword.getEditText().getText().toString());
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

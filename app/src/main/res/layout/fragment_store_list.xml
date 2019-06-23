@@ -34,12 +34,11 @@
         android:layout_marginTop="40dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/action_add_spaza"
+        android:text="@string/action_add_store"
         app:layout_constraintBottom_toTopOf="@+id/done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
         app:strokeColor="@color/colorPrimary"
         app:strokeWidth="2dp" />
 

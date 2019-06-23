@@ -27,7 +27,7 @@ public class OwnerActivity extends AppCompatActivity {
                     loadFragment(new StatisticsFragment());
                     return true;
                 case R.id.navigation_dashboard:
-                    loadFragment(new StoreList());
+                    loadFragment(new StoresFragment());
                     return true;
                 case R.id.navigation_notifications:
                     loadFragment(new NotificationFragment());

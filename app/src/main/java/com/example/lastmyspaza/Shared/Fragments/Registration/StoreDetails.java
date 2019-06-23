@@ -32,6 +32,7 @@ import com.example.lastmyspaza.Shared.ViewModel.RegistrationAccountDetails;
 import com.example.lastmyspaza.Shared.ViewModel.StoreListViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,21 +49,11 @@ import static android.content.ContentValues.TAG;
 
 public class StoreDetails extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
-    private EditText mStoreName;
-    private EditText mStoreLocation;
-    private Button mSignUp;
-    private RelativeLayout autoSuggestWrapper;
-    private AutoCompleteTextView autoCompleteTextView;
+    private TextInputLayout mStoreName;
+    private TextInputLayout mStoreLocation;
+    private Button addStoreDetails;
     private DatabaseIteration databaseIteration;
     private Authentication authentication;
-    private StoreListViewModel StoreListViewModel;
-    private ManagerDetails managerDetails;
-    private RegistrationAccountDetails registrationAccountDetails;
-    private ArrayList<Store> storesFromDB = new ArrayList<>();
-    private  StoreAutoCompleteAdapter autoCompleteAdapter;
-    private Store registrationStore;
-    private String currentUserRole;
 
     public StoreDetails() {
         // Required empty public constructor
@@ -87,84 +78,84 @@ public class StoreDetails extends Fragment {
         authentication = new Authentication(getContext());
         databaseIteration = new DatabaseIteration(getContext());
         //registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
-        managerDetails = registrationAccountDetails.getManagerDetails();
+       // managerDetails = registrationAccountDetails.getManagerDetails();
 
-        if (managerDetails.getRole().equals(Roles.Manager.toString()))
-        {
-            mSignUp.setText("Sign Up");
-            mStoreName.setVisibility(View.GONE);
-            autoSuggestWrapper.setVisibility(View.VISIBLE);
-        }
+//        if (managerDetails.getRole().equals(Roles.Manager.toString()))
+//        {
+//            mSignUp.setText("Sign Up");
+//            mStoreName.setVisibility(View.GONE);
+//            autoSuggestWrapper.setVisibility(View.VISIBLE);
+//        }
 
-        autoCompleteAdapter  =  new StoreAutoCompleteAdapter(getContext(),R.layout.store_list_item,storesFromDB);
+      //  autoCompleteAdapter  =  new StoreAutoCompleteAdapter(getContext(),R.layout.store_list_item,storesFromDB);
 
-        databaseIteration.getAllStores("stores", new OnGetDataListener() {
-            @Override
-            public void onStart() {
+//        databaseIteration.getAllStores("stores", new OnGetDataListener() {
+//            @Override
+//            public void onStart() {
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(DataSnapshot data) {
+//                for(DataSnapshot value : data.getChildren()) {
+//                    Store store = value.getValue(Store.class);
+//                    store.setStoreId(value.getKey());
+//                    storesFromDB.add(store);
+//                }
+//                autoCompleteAdapter  =  new StoreAutoCompleteAdapter(getContext(),R.layout.store_list_item,storesFromDB);
+//                autoCompleteTextView.setThreshold(1); //will start working from first character
+//                autoCompleteTextView.setAdapter(autoCompleteAdapter);
+//                autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                        registrationStore = (Store) adapterView.getItemAtPosition(i);
+//                        mStoreLocation.setText(registrationStore.getStoreLocation());
+//                        mStoreName.setText(registrationStore.getStoreName());
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onFailed(DatabaseError databaseError) {
+//                Log.d(TAG,databaseError.toString());
+//            }
+//        });
 
-            }
 
-            @Override
-            public void onSuccess(DataSnapshot data) {
-                for(DataSnapshot value : data.getChildren()) {
-                    Store store = value.getValue(Store.class);
-                    store.setStoreId(value.getKey());
-                    storesFromDB.add(store);
-                }
-                autoCompleteAdapter  =  new StoreAutoCompleteAdapter(getContext(),R.layout.store_list_item,storesFromDB);
-                autoCompleteTextView.setThreshold(1); //will start working from first character
-                autoCompleteTextView.setAdapter(autoCompleteAdapter);
-                autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        registrationStore = (Store) adapterView.getItemAtPosition(i);
-                        mStoreLocation.setText(registrationStore.getStoreLocation());
-                        mStoreName.setText(registrationStore.getStoreName());
-                    }
-                });
-            }
-
-            @Override
-            public void onFailed(DatabaseError databaseError) {
-                Log.d(TAG,databaseError.toString());
-            }
-        });
-
-
-        mSignUp.setOnClickListener(new View.OnClickListener() {
+        addStoreDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Store store = new Store();
-                store.setStoreName(mStoreName.getText().toString());
-                store.setStoreLocation(mStoreLocation.getText().toString());
-
-                if(managerDetails.getRole().equals(Roles.Admin.toString()))
-                {
-                    //StoreListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
-                    StoreListViewModel.setStore(store);
-
-                    FragmentManager fragmentManager =  getFragmentManager();
-                    fragmentManager.beginTransaction().remove(fragmentManager.findFragmentByTag("storeDetails"))
-                            .show( fragmentManager.findFragmentByTag("storeList"))
-                            .commit();
-                }
-                else{
-                    authentication.CreateManagerAccount(managerDetails.getEmail(),registrationAccountDetails.getPassword())
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if ( task.isSuccessful()){
-                                        String userId = authentication.GetCurrentUser().getUid();
-                                        registrationStore.setStoreManager(userId);
-                                        databaseIteration.addManagerToStore(userId,registrationStore);
-                                        addManagerDetailsToDb(userId);
-                                    }else
-                                    {
-                                        Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                }
+//                Store store = new Store();
+//                store.setStoreName(mStoreName.getText().toString());
+//                store.setStoreLocation(mStoreLocation.getText().toString());
+//
+//                if(managerDetails.getRole().equals(Roles.Admin.toString()))
+//                {
+//                    //StoreListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
+//                    StoreListViewModel.setStore(store);
+//
+//                    FragmentManager fragmentManager =  getFragmentManager();
+//                    fragmentManager.beginTransaction().remove(fragmentManager.findFragmentByTag("storeDetails"))
+//                            .show( fragmentManager.findFragmentByTag("storeList"))
+//                            .commit();
+//                }
+//                else{
+//                    authentication.CreateManagerAccount(managerDetails.getEmail(),registrationAccountDetails.getPassword())
+//                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<AuthResult> task) {
+//                                    if ( task.isSuccessful()){
+//                                        String userId = authentication.GetCurrentUser().getUid();
+//                                        registrationStore.setStoreManager(userId);
+//                                        databaseIteration.addManagerToStore(userId,registrationStore);
+//                                        addManagerDetailsToDb(userId);
+//                                    }else
+//                                    {
+//                                        Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
+//                                    }
+//                                }
+//                            });
+//                }
             }
         });
         return view;
@@ -174,9 +165,7 @@ public class StoreDetails extends Fragment {
     {
         mStoreName = view.findViewById(R.id.store_name);
         mStoreLocation = view.findViewById(R.id.store_location);
-        autoCompleteTextView = view.findViewById(R.id.autocompleteTextView);
-        mSignUp = view.findViewById(R.id.add_storeDetails);
-        autoSuggestWrapper = view.findViewById(R.id.auto_suggest_wrapper);
+        addStoreDetails = view.findViewById(R.id.add_store_details);
     }
 
     @Override
@@ -192,52 +181,52 @@ public class StoreDetails extends Fragment {
     }
 
 
-    public void addManagerDetailsToDb(String uid)
-    {
-        databaseIteration.addManagerInformationToDb(uid,managerDetails)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful())
-                        {
-                            //TODO SAVE ROLE IN SHARED Preferenceces and remove when logging out
-
-                            Intent intent = new Intent(getActivity(), ManagerActivity.class);
-                            startActivity(intent);
-                        }
-                        else{
-                            Toast.makeText(getContext(),"Failed to add manager details to db", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-    }
-    public void getAllStores()
-    {
-        databaseIteration.getAllStores("stores", new OnGetDataListener() {
-            @Override
-            public void onStart() {
-
-            }
-
-            @Override
-            public void onSuccess(DataSnapshot data) {
-                for(DataSnapshot value : data.getChildren()) {
-                    Store store = value.getValue(Store.class);
-                    store.setStoreId(value.getKey());
-                    //storesFromDB.add(store);
-                    autoCompleteAdapter.add(store);
-
-                }
-                autoCompleteAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailed(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
+//    public void addManagerDetailsToDb(String uid)
+//    {
+//        databaseIteration.addManagerInformationToDb(uid,managerDetails)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if(task.isSuccessful())
+//                        {
+//                            //TODO SAVE ROLE IN SHARED Preferenceces and remove when logging out
+//
+//                            Intent intent = new Intent(getActivity(), ManagerActivity.class);
+//                            startActivity(intent);
+//                        }
+//                        else{
+//                            Toast.makeText(getContext(),"Failed to add manager details to db", Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
+//    }
+//    public void getAllStores()
+//    {
+//        databaseIteration.getAllStores("stores", new OnGetDataListener() {
+//            @Override
+//            public void onStart() {
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(DataSnapshot data) {
+//                for(DataSnapshot value : data.getChildren()) {
+//                    Store store = value.getValue(Store.class);
+//                    store.setStoreId(value.getKey());
+//                    //storesFromDB.add(store);
+//                    autoCompleteAdapter.add(store);
+//
+//                }
+//                autoCompleteAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onFailed(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//    }
 
 
     /**

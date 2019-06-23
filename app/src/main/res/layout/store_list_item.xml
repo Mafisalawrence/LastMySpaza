@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
     android:layout_marginBottom="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -35,7 +37,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:textAppearance="@style/TextAppearance.Title"
+            android:textAppearance="@style/TextAppearance_Title"
             android:text="test"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/list_icon"
@@ -49,7 +51,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="16dp"
             android:text="test"
-            android:textAppearance="@style/TextAppearance.SubTitle"
+            android:textAppearance="@style/TextAppearance_SubTitle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/list_icon"
             app:layout_constraintTop_toBottomOf="@id/store_name"

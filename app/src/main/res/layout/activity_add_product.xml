@@ -192,7 +192,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/add_product"
+            android:id="@+id/add_product_button"
             style="@style/Widget.Custom.MaterialComponents.Button"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

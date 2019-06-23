@@ -66,7 +66,7 @@ public class StoreList extends Fragment {
 
        // StoreListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
         //registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
-        managerDetails = registrationAccountDetails.getManagerDetails();
+       // managerDetails = registrationAccountDetails.getManagerDetails();
         databaseIteration = new DatabaseIteration(getContext());
         authentication =  new Authentication(getContext());
 
@@ -76,17 +76,6 @@ public class StoreList extends Fragment {
             public void deleteItem(Store store,int i) {
                 stores.remove(i);
                 storeListAdapter.notifyItemRemoved(i);
-            }
-
-            @Override
-            public void editItem(Store store) {
-               Bundle bundle = new Bundle();
-               StoreDetails storeDetails = new StoreDetails();
-               bundle.putSerializable("store",store);
-               storeDetails.setArguments(bundle);
-               getFragmentManager().beginTransaction()
-               .replace(R.id.fragment_container, storeDetails)
-               .commit();
             }
         });
 
@@ -103,8 +92,8 @@ public class StoreList extends Fragment {
 //                storeListAdapter.notifyDataSetChanged();
 //            }
 //        });
-        currentUserId = authentication.GetCurrentUser().getUid();
-        getAllStoresOFOwner(currentUserId);
+        //currentUserId = authentication.GetCurrentUser().getUid();
+        //getAllStoresOFOwner(currentUserId);
 
         addDetails.setOnClickListener(new View.OnClickListener() {
             @Override

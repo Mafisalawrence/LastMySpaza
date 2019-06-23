@@ -49,4 +49,14 @@ public class Store implements Serializable {
     public void setStoreId(String storeId) {
         this.storeId = storeId;
     }
+
+    public Store(String storeName,String storeLocation){
+        setStoreName(storeName);
+        setStoreLocation(storeLocation);
+    }
+    //TODO only needed for testing
+    public Store()
+    {
+
+    }
 }

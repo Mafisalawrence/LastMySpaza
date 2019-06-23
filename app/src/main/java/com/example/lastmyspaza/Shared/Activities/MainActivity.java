@@ -32,20 +32,20 @@ public class MainActivity extends AppCompatActivity {
         DatabaseIteration databaseIteration = new DatabaseIteration(MainActivity.this);
         FirebaseUser user = authentication.GetCurrentUser();
         setContentView(R.layout.activity_main);
-        Button signUp = findViewById(R.id.right_button);
-        Button signIn = findViewById(R.id.left_button);
+        Button signUp = findViewById(R.id.register);
+        Button signIn = findViewById(R.id.login);
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadActivity(new LoginActivity());
+                loadActivity(new RegistrationActivity());
             }
         });
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadActivity(new RegistrationActivity());
+                loadActivity(new LoginActivity());
             }
         });
 //        if (user == null) {

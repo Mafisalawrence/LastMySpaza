@@ -21,6 +21,7 @@ import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private Authentication authentication;
     private DatabaseIteration databaseIteration;
-    private EditText emailEditText;
-    private EditText passwordEditText;
+    private TextInputLayout emailEditText;
+    private TextInputLayout passwordEditText;
     private Button signInButton;
     private TextView linkSignUp;
     private String uid;
@@ -63,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
         linkSignUp = findViewById(R.id.link_signup);
         signInButton = findViewById(R.id.email_sign_in_button);
 
-        emailEditText.setText("test@owner.com");
-        passwordEditText.setText("12345678");
+        emailEditText.getEditText().setText("test@owner.com");
+        passwordEditText.getEditText().setText("12345678");
 
         //Fire base auth instance
         try{
@@ -77,31 +78,32 @@ public class LoginActivity extends AppCompatActivity {
         databaseIteration = new DatabaseIteration(this);
         authentication =  new Authentication(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onBackPressed();
+//            }
+//        });
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String email = emailEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+                String email = emailEditText.getEditText().getText().toString();
+                String password = passwordEditText.getEditText().getText().toString();
                 if(isValidEmail(email)){
                     emailEditText.setError("Invalid email");
                 }else if (isPasswordValid(password)){
                     passwordEditText.setError("Invalid password");
                 }else
-                AttemptUserLogin(email,password);
+                    beginActivity(new OwnerActivity());
+               // AttemptUserLogin(email,password);
             }
         });
 

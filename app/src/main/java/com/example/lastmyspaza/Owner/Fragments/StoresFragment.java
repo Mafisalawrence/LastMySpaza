@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Classes.Authentication;
@@ -14,8 +15,10 @@ import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.example.lastmyspaza.Shared.Fragments.Registration.StoreDetails;
 import com.example.lastmyspaza.Shared.Fragments.Registration.StoresListAdapter;
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
+import com.example.lastmyspaza.Shared.Interfaces.OnStoreListLister;
 import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.Models.Store;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
@@ -49,11 +52,30 @@ public class StoresFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
         recyclerView = rootView.findViewById(R.id.recycler_view);
         addStore = rootView.findViewById(R.id.add_store);
 
-        StoresListAdapter = new StoresListAdapter(stores);
+        Store s =  new Store("kabelo kota", "soweto");
+        Store st = new Store("yebo name", "Braam");
+        Store sss = new Store("tripple s","Orlando");
+        stores.add(s);
+        stores.add(st);
+        stores.add(sss);
+
+        StoresListAdapter = new StoresListAdapter(stores, new OnStoreListLister() {
+            @Override
+            public void deleteItem(Store store, int i) {
+                new MaterialAlertDialogBuilder(getContext())
+                        .setTitle(R.string.confirm_remove_store_title)
+                        .setMessage(R.string.confirm_remove_store)
+                        .setNegativeButton("Cancel",null)
+                        .setPositiveButton("Ok", null)
+                        .show();
+            }
+        });
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

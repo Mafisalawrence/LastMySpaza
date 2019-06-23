@@ -5,7 +5,7 @@
     android:id="@+id/linearLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Shared.Fragments.Registration.PersonalDetails">
+    tools:context=".Shared.Fragments.Registration.StoreDetails">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,32 +96,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <RelativeLayout
-            android:id="@+id/auto_suggest_wrapper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/store_location"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <android.support.v7.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/autocompleteTextView"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:dropDownAnchor="@+id/auto_suggest_wrapper"
-                android:dropDownHeight="wrap_content"
-                android:hint="spaza name" />
-        </RelativeLayout>
-
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/store_location"
             style="@style/Widget.MaterialComponents.Custom.TextInputLayout.OutlinedBox"
@@ -134,7 +108,7 @@
             android:hint="@string/input_store_location"
             app:endIconDrawable="@drawable/ic_location_on_black_24dp"
             app:endIconMode="custom"
-            app:layout_constraintBottom_toTopOf="@id/email_sign_in_button"
+            app:layout_constraintBottom_toTopOf="@id/add_store_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -146,14 +120,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/email_sign_in_button"
+            android:id="@+id/add_store_details"
             style="@style/Widget.Custom.MaterialComponents.Button"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/action_sign_up"
+            android:text="@string/action_add_store"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.458"
