@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Activities.MainActivity;
+import com.jjoe64.graphview.GraphView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +38,11 @@ public class StatisticsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_statictics, container, false);
         setHasOptionsMenu(true);
         Toolbar toolbar = view.findViewById(R.id.toolbar_stats);
+        final GraphView graph = view.findViewById(R.id.graph);
+
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Hours");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Sales");
+
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);

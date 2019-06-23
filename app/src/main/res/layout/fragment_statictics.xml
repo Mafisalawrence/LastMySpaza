@@ -35,6 +35,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:chipSurfaceColor="@color/colorAccent"
                 android:text="Daily" />
 
             <com.google.android.material.chip.Chip
@@ -64,9 +65,7 @@
         app:layout_constraintBottom_toTopOf="@+id/purchase_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="#818181"
-        app:strokeWidth="0.5dp">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -140,9 +139,7 @@
         app:layout_constraintBottom_toTopOf="@+id/chart_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="#818181"
-        app:strokeWidth="0.5dp">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -217,9 +214,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="#818181"
-        app:strokeWidth="0.5dp">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
