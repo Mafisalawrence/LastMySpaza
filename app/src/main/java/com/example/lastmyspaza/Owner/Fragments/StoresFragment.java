@@ -38,8 +38,6 @@ public class StoresFragment extends Fragment {
     private RecyclerView recyclerView;
     private Button addStore;
     private StoresListAdapter StoresListAdapter;
-    private Authentication authentication;
-
     public StoresFragment() {
         // Required empty public constructor
     }
