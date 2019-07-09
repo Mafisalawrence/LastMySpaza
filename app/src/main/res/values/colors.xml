@@ -7,6 +7,9 @@
     <color name="year">#999999</color>
     <color name="sales_icon">#069de8</color>
     <color name="stock_icon">#FF5722</color>
+
+    <color name="search_background">#99CFCDCD</color>
+    <color name="search_icon">#996F6B6B</color>
     <!--<color name="title">#222222</color>-->
     // app colors
 

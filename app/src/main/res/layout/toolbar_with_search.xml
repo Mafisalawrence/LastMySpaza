@@ -1,0 +1,84 @@
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:textAlignment="center"
+    android:layout_height="wrap_content"
+    android:minHeight="?attr/actionBarSize"
+    local:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    local:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/search_background"
+            local:layout_constraintBottom_toBottomOf="parent"
+            local:layout_constraintEnd_toEndOf="parent"
+            local:layout_constraintHorizontal_bias="0.139"
+            local:layout_constraintStart_toStartOf="parent"
+            local:layout_constraintTop_toTopOf="parent"
+            local:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                app:srcCompat="@drawable/ic_search_black_24dp"
+                local:layout_constraintBottom_toBottomOf="parent"
+                local:layout_constraintEnd_toStartOf="@+id/textView4"
+                local:layout_constraintStart_toStartOf="parent"
+                local:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Search Product"
+                android:textColor="@color/search_icon"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                local:layout_constraintBottom_toBottomOf="parent"
+                local:layout_constraintEnd_toEndOf="parent"
+                local:layout_constraintStart_toStartOf="parent"
+                local:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/shoppingCart"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            app:srcCompat="@drawable/ic_shopping_cart_black_24dp"
+            local:layout_constraintBottom_toBottomOf="parent"
+            local:layout_constraintEnd_toEndOf="parent"
+            local:layout_constraintHorizontal_bias="0.609"
+            local:layout_constraintStart_toEndOf="@+id/search"
+            local:layout_constraintTop_toTopOf="parent"
+            local:layout_constraintVertical_bias="0.695" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.appcompat.widget.Toolbar>
