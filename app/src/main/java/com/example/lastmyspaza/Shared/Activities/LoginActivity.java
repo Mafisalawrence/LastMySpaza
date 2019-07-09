@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                 }else if (isPasswordValid(password)){
                     passwordEditText.setError("Invalid password");
                 }else
-                    beginActivity(new OwnerActivity());
+                    beginActivity(new ManagerActivity());
                // AttemptUserLogin(email,password);
             }
         });

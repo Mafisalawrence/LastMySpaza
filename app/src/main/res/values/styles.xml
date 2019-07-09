@@ -43,8 +43,8 @@
         <item name="android:layout_marginBottom">@dimen/text_margin_bottom</item>
     </style>
     <style name="Widget.MaterialComponents.Custom.TextInputLayout.FilledBox" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
-        <item name="android:layout_width">@dimen/quantity_text_width</item>
-        <item name="boxBackgroundColor">#fff</item>
+        <item name="boxBackgroundColor">@color/add_product_cards</item>
+        <item name="boxStrokeColor">@color/add_product_cards</item>
         <item name="android:textSize">25dp</item>
     </style>
                     <!--CardView-->

@@ -42,6 +42,18 @@
     <string name="input_product_category">Product Category</string>
     <string name="input_product_price">Product Price</string>
     <string name="input_product_quantity">Product Quantity</string>
+    <string name="input_products_available">Available products</string>
+    <string name="switch_text">Add product weight</string>
+    <string name="product_details">Product Details</string>
+
+    <string name="product_weight_prompt">select_weight</string>
+
+    <string-array name="product_weight">
+        <item>g</item>
+        <item>kg</item>
+        <item>ml</item>
+        <item>l</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

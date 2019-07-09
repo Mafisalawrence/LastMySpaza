@@ -22,6 +22,7 @@ import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Interfaces.OnItemClickListener;
 import com.example.lastmyspaza.Shared.Models.Product;
 import com.example.lastmyspaza.Shared.Models.Store;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
@@ -40,7 +41,7 @@ public class InventoryFragment extends Fragment {
 
     private ProductsAdapter  productsAdapter;
     private ArrayList<Product> products = new ArrayList<>();
-    private Button addProduct;
+    private FloatingActionButton addProduct;
     private String managerStore;
     private DatabaseIteration databaseIteration;
 
@@ -67,11 +68,11 @@ public class InventoryFragment extends Fragment {
 
             }
         });
-
-        EmptyRecyclerView list = rootView.findViewById(R.id.products_recyclerView);
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
-        list.setEmptyView(rootView.findViewById(R.id.empty_list));
-        list.setAdapter(productsAdapter);
+//
+//        EmptyRecyclerView list = rootView.findViewById(R.id.products_recyclerView);
+//        list.setLayoutManager(new LinearLayoutManager(getContext()));
+//        list.setEmptyView(rootView.findViewById(R.id.empty_list));
+//        list.setAdapter(productsAdapter);
 
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,10 +94,10 @@ public class InventoryFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        databaseIteration = new DatabaseIteration(getContext());
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("manager",MODE_PRIVATE);
-        managerStore = sharedPreferences.getString("managerStore",null);
-        getProductAllProducts();
+//        databaseIteration = new DatabaseIteration(getContext());
+//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("manager",MODE_PRIVATE);
+//        managerStore = sharedPreferences.getString("managerStore",null);
+//        getProductAllProducts();
     }
 
     public void getProductAllProducts() {
