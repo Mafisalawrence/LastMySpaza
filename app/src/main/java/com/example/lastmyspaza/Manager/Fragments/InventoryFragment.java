@@ -53,7 +53,6 @@ public class InventoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_inventory, container, false);
-        addProduct = rootView.findViewById(R.id.add_product_button);
 
         productsAdapter = new ProductsAdapter(products, new OnItemClickListener() {
             @Override
@@ -74,13 +73,13 @@ public class InventoryFragment extends Fragment {
 //        list.setEmptyView(rootView.findViewById(R.id.empty_list));
 //        list.setAdapter(productsAdapter);
 
-        addProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =  new Intent(getActivity(), AddProductActivity.class);
-                startActivity(intent);
-            }
-        });
+//        addProduct.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent =  new Intent(getActivity(), AddProductActivity.class);
+//                startActivity(intent);
+//            }
+//        });
        return rootView;
     }
 
