@@ -3,21 +3,18 @@ package com.example.lastmyspaza.Manager.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.lastmyspaza.Manager.Adapters.ProductsAdapter;
 import com.example.lastmyspaza.Manager.Activities.AddProductActivity;
+import com.example.lastmyspaza.Manager.Adapters.ProductsAdapter;
 import com.example.lastmyspaza.Manager.Activities.ProductDetailsActivity;
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
-import com.example.lastmyspaza.Shared.Fragments.Registration.EmptyRecyclerView;
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Interfaces.OnItemClickListener;
 import com.example.lastmyspaza.Shared.Models.Product;
@@ -30,9 +27,6 @@ import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +47,7 @@ public class InventoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_inventory, container, false);
-
+        addProduct = rootView.findViewById(R.id.add_product_button);
         productsAdapter = new ProductsAdapter(products, new OnItemClickListener() {
             @Override
             public void onItemClick(Product product) {
@@ -73,13 +67,13 @@ public class InventoryFragment extends Fragment {
 //        list.setEmptyView(rootView.findViewById(R.id.empty_list));
 //        list.setAdapter(productsAdapter);
 
-//        addProduct.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent =  new Intent(getActivity(), AddProductActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        addProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent  = new Intent(getActivity(), AddProductActivity.class);
+                startActivity(intent);
+            }
+        });
        return rootView;
     }
 

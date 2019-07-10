@@ -69,7 +69,7 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_continue">Continue</string>
 
-   <!-- Alert Dialog -->
+    <!-- Alert Dialog -->
     <string name="confirm_remove_store_title">Are you sure?</string>
     <string name="confirm_remove_store">Removing store will also deactivate store manager account</string>
 

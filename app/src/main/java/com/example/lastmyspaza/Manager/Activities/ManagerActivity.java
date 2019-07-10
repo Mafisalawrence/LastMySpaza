@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.lastmyspaza.Manager.Fragments.PurchaseFragment;
 import com.example.lastmyspaza.Owner.Fragments.NotificationFragment;
 import com.example.lastmyspaza.Owner.Fragments.StatisticsFragment;
 import com.example.lastmyspaza.Manager.Fragments.InventoryFragment;
@@ -17,15 +18,15 @@ import androidx.fragment.app.Fragment;
 
 public class ManagerActivity extends AppCompatActivity
 {
-
-    private TextView mTextMessage;
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
+                case R.id.navigation_sales:
+                    loadFragment(new PurchaseFragment());
+                    return true;
                 case R.id.navigation_inventory:
                     loadFragment(new InventoryFragment());
                     return true;
@@ -35,7 +36,6 @@ public class ManagerActivity extends AppCompatActivity
                 case R.id.navigation_notifications:
                     loadFragment(new NotificationFragment());
                     return true;
-
                 case R.id.navigation_settings:
                     loadFragment(new SettingsFragment());
                     return true;
@@ -48,11 +48,9 @@ public class ManagerActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager);
-
-        mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        loadFragment(new InventoryFragment());
+        loadFragment(new PurchaseFragment());
     }
     private void loadFragment(Fragment fragment){
         this.getSupportFragmentManager().beginTransaction()
