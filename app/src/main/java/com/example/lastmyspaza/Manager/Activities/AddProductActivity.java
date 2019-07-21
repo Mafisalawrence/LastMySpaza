@@ -1,40 +1,16 @@
 package com.example.lastmyspaza.Manager.Activities;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.Manager.Fragments.AddSelectionFragment;
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Classes.Authentication;
-import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
-import com.example.lastmyspaza.Shared.Models.Product;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.google.android.material.textfield.TextInputLayout;
 
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import static android.content.ContentValues.TAG;
 
 public class AddProductActivity extends AppCompatActivity {
 

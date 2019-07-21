@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Activities.MainActivity;
 import com.jjoe64.graphview.GraphView;
 
 import androidx.annotation.NonNull;

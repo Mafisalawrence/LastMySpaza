@@ -1,51 +1,19 @@
-package com.example.lastmyspaza.Shared.Fragments.Registration;
+package com.example.lastmyspaza.shared.fragments;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.example.lastmyspaza.Manager.Activities.ManagerActivity;
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Classes.Authentication;
-import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
-import com.example.lastmyspaza.Shared.Enums.Roles;
-import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
-import com.example.lastmyspaza.Shared.Models.ManagerDetails;
-import com.example.lastmyspaza.Shared.Models.Store;
-import com.example.lastmyspaza.Shared.ViewModel.RegistrationAccountDetails;
-import com.example.lastmyspaza.Shared.ViewModel.StoreListViewModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.lastmyspaza.shared.Classes.Authentication;
+import com.example.lastmyspaza.shared.Classes.DatabaseIteration;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
-import static android.content.ContentValues.TAG;
 
 public class StoreDetails extends Fragment {
 
@@ -75,10 +43,10 @@ public class StoreDetails extends Fragment {
         loadUIComponents(view);
 
 
-        authentication = new Authentication(getContext());
+       // authentication = new Authentication(getContext());
         databaseIteration = new DatabaseIteration(getContext());
-        //registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
-       // managerDetails = registrationAccountDetails.getManagerDetails();
+        //registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationViewModel.class);
+       // managerDetails = registrationAccountDetails.getRegistrationDetails();
 
 //        if (managerDetails.getRole().equals(Roles.Manager.toString()))
 //        {

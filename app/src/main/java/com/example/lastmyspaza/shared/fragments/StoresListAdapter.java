@@ -1,4 +1,4 @@
-package com.example.lastmyspaza.Shared.Fragments.Registration;
+package com.example.lastmyspaza.shared.fragments;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Interfaces.OnStoreListLister;
-import com.example.lastmyspaza.Shared.Models.Store;
+import com.example.lastmyspaza.shared.Interfaces.OnStoreListLister;
+import com.example.lastmyspaza.shared.Models.Store;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,8 @@
-package com.example.lastmyspaza.Shared.Fragments.Registration;
+package com.example.lastmyspaza.shared.fragments;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 

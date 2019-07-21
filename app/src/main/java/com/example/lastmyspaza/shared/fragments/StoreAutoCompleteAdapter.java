@@ -1,4 +1,4 @@
-package com.example.lastmyspaza.Shared.Fragments.Registration;
+package com.example.lastmyspaza.shared.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -10,7 +10,7 @@ import android.widget.Filter;
 import android.widget.TextView;
 
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Models.Store;
+import com.example.lastmyspaza.shared.Models.Store;
 
 import java.util.ArrayList;
 import java.util.List;

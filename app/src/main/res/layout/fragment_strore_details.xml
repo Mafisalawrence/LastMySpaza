@@ -5,7 +5,7 @@
     android:id="@+id/linearLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Shared.Fragments.Registration.StoreDetails">
+    tools:context=".shared.fragments.StoreDetails">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

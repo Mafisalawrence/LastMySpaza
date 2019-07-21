@@ -5,10 +5,10 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Shared.Fragments.Registration.StoreList">
+    tools:context=".shared.fragments.StoreList">
 
     <!-- TODO: Update blank fragment layout -->
-    <com.example.lastmyspaza.Shared.Fragments.Registration.EmptyRecyclerView
+    <com.example.lastmyspaza.shared.fragments.EmptyRecyclerView
         android:id="@+id/store_list"
         android:layout_width="match_parent"
         android:layout_height="555dp"

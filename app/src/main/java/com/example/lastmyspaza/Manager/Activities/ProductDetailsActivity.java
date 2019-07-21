@@ -3,14 +3,13 @@ package com.example.lastmyspaza.Manager.Activities;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Classes.Authentication;
-import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
-import com.example.lastmyspaza.Shared.Models.Product;
+import com.example.lastmyspaza.shared.Classes.Authentication;
+import com.example.lastmyspaza.shared.Classes.DatabaseIteration;
+import com.example.lastmyspaza.shared.Models.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -36,7 +35,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         setProductDetails(selectedProduct);
 
         databaseIteration =  new DatabaseIteration(ProductDetailsActivity.this);
-        authentication = new Authentication(ProductDetailsActivity.this);
+        //authentication = new Authentication(ProductDetailsActivity.this);
         deleteProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

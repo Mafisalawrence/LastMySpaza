@@ -1,9 +1,6 @@
-package com.example.lastmyspaza.Shared.Models;
+package com.example.lastmyspaza.shared.Models;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
-public class ManagerDetails implements Serializable {
+public class RegistrationDetails {
 
     private String firstName;
     private String lastName;
@@ -11,16 +8,6 @@ public class ManagerDetails implements Serializable {
     private String role;
     private String storeName;
     private String storeLocation;
-    //private ArrayList<Store> stores;
-
-
-//    public ArrayList<Store> getStores() {
-//        return stores;
-//    }
-//
-//    public void setStores(ArrayList<Store> stores) {
-//        this.stores = stores;
-//    }
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
@@ -66,15 +53,5 @@ public class ManagerDetails implements Serializable {
 
     public String getRole() {
         return role;
-    }
-
-    public ManagerDetails(){}
-
-    public ManagerDetails(String firstName, String lastName, String email, String storeName, String storeLocation){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.storeName = storeName;
-        this.storeLocation = storeLocation;
     }
 }

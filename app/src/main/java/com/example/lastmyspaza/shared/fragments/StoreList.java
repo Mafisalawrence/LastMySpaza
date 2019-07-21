@@ -1,4 +1,4 @@
-package com.example.lastmyspaza.Shared.Fragments.Registration;
+package com.example.lastmyspaza.shared.fragments;
 
 
 import android.content.Context;
@@ -13,27 +13,24 @@ import android.widget.Toast;
 
 import com.example.lastmyspaza.Owner.OwnerActivity;
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Classes.Authentication;
-import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
-import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
-import com.example.lastmyspaza.Shared.Interfaces.OnStoreListLister;
-import com.example.lastmyspaza.Shared.Models.ManagerDetails;
-import com.example.lastmyspaza.Shared.Models.Store;
-import com.example.lastmyspaza.Shared.ViewModel.RegistrationAccountDetails;
-import com.example.lastmyspaza.Shared.ViewModel.StoreListViewModel;
+import com.example.lastmyspaza.shared.Classes.Authentication;
+import com.example.lastmyspaza.shared.Classes.DatabaseIteration;
+import com.example.lastmyspaza.shared.Interfaces.OnGetDataListener;
+import com.example.lastmyspaza.shared.Interfaces.OnStoreListLister;
+import com.example.lastmyspaza.shared.Models.RegistrationDetails;
+import com.example.lastmyspaza.shared.Models.Store;
+import com.example.lastmyspaza.shared.viewModel.RegistrationViewModel;
+import com.example.lastmyspaza.shared.viewModel.StoreListViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
 
 import static android.content.ContentValues.TAG;
 
@@ -44,9 +41,9 @@ public class StoreList extends Fragment {
 
     private ArrayList<Store> stores = new ArrayList<>();
     private StoresListAdapter storeListAdapter;
-    private ManagerDetails managerDetails;
+    private RegistrationDetails registrationDetails;
     private StoreListViewModel StoreListViewModel;
-    private RegistrationAccountDetails registrationAccountDetails;
+    private RegistrationViewModel registrationViewModel;
     private DatabaseIteration databaseIteration;
     private Authentication authentication;
     private Button done;
@@ -65,10 +62,10 @@ public class StoreList extends Fragment {
         done = view.findViewById(R.id.done);
 
        // StoreListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
-        //registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
-       // managerDetails = registrationAccountDetails.getManagerDetails();
+        //registrationViewModel = ViewModelProviders.of(getActivity()).get(RegistrationViewModel.class);
+       // registrationDetails = registrationViewModel.getRegistrationDetails();
         databaseIteration = new DatabaseIteration(getContext());
-        authentication =  new Authentication(getContext());
+       // authentication =  new Authentication(getContext());
 
 
         storeListAdapter = new StoresListAdapter(stores, new OnStoreListLister() {
@@ -108,21 +105,21 @@ public class StoreList extends Fragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                managerDetails = registrationAccountDetails.getManagerDetails();
-                authentication.CreateManagerAccount(managerDetails.getEmail(),registrationAccountDetails.getPassword())
-                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                 if ( task.isSuccessful()){
-                                    String userId = authentication.GetCurrentUser().getUid();
-                                    addStoreDetailsToDb(userId);
-                                    addManagerDetailsToDb(userId);
-                                }else
-                                {
-                                    Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
+               // registrationDetails = registrationViewModel.getRegistrationDetails();
+//                authentication.CreateManagerAccount(registrationDetails.getEmail(), registrationViewModel.getPassword())
+//                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                 if ( task.isSuccessful()){
+//                                    String userId = authentication.GetCurrentUser().getUid();
+//                                    addStoreDetailsToDb(userId);
+//                                    addManagerDetailsToDb(userId);
+//                                }else
+//                                {
+//                                    Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
+//                                }
+//                            }
+//                        });
             }
         });
 
@@ -144,7 +141,7 @@ public class StoreList extends Fragment {
     }
     public void addManagerDetailsToDb(String uid)
     {
-        databaseIteration.addManagerInformationToDb(uid,managerDetails)
+        databaseIteration.addManagerInformationToDb(uid, registrationDetails)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

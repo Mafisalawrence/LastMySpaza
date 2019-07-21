@@ -8,7 +8,6 @@ import com.example.lastmyspaza.Owner.Fragments.NotificationFragment;
 import com.example.lastmyspaza.Owner.Fragments.StatisticsFragment;
 import com.example.lastmyspaza.Manager.Fragments.SettingsFragment;
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Fragments.Registration.StoreList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;

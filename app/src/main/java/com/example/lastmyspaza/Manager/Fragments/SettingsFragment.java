@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.lastmyspaza.R;
-import com.example.lastmyspaza.Shared.Activities.MainActivity;
-import com.example.lastmyspaza.Shared.Classes.Authentication;
-import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
+import com.example.lastmyspaza.shared.activities.MainActivity;
+import com.example.lastmyspaza.shared.Classes.Authentication;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -40,7 +39,7 @@ public class SettingsFragment extends Fragment {
         profileView = view.findViewById(R.id.profile_card);
         logoutView = view.findViewById(R.id.logout_card);
 
-        authentication = new Authentication(getContext());
+       // authentication = new Authentication(getContext());
 
         profileView.setOnClickListener(new View.OnClickListener() {
             @Override
