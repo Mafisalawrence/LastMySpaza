@@ -7,34 +7,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Enums.Roles;
-import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.ViewModel.RegistrationAccountDetails;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 public class AccountDetails extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
-    private TextInputLayout mEmail;
-    private TextInputLayout mPassword;
-    private TextInputLayout mFirstName;
-    private TextInputLayout mLastName;
-
+    private TextInputLayout mEmail ,mPassword, mFirstName, mLastName;
+    private ImageView managerSelection, ownerSelection;
+    private TextView managerText, ownerText;
+    private Button mContinue;
+    private String email,password,role,firstName,lastName;
     private RegistrationAccountDetails registrationAccountDetails;
-    private ManagerDetails managerDetails;
-    public AccountDetails() {
-        // Required empty public constructor
-    }
 
-
+    public AccountDetails() { }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,47 +40,31 @@ public class AccountDetails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account_details, container, false);
+        InitialiseComponents(view);
 
-        mEmail = view.findViewById(R.id.email);
-        mPassword = view.findViewById(R.id.password);
-        mFirstName = view.findViewById(R.id.first_name);
-        mLastName = view.findViewById(R.id.last_name);
-        mPassword = view.findViewById(R.id.password);
-
-        final ImageView managerSelection= view.findViewById(R.id.manager_imageView);
-        ImageView ownerSelection =  view.findViewById(R.id.owner_imageView);
-        final TextView managerText = view.findViewById(R.id.manager_text);
-        final TextView ownerText = view.findViewById(R.id.owner_text);
-
-        Button mContinue = view.findViewById(R.id.button_continue);
-
-        managerDetails = new ManagerDetails();
+        registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
 
         mContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                managerDetails.setEmail(mEmail.getEditText().getText().toString());
-                managerDetails.setFirstName(mFirstName.getEditText().getText().toString());
-                managerDetails.setLastName(mLastName.getEditText().getText().toString());
-
                 setAccountDetails();
-                moveTONextFragment();
-
-            }
+                Toast.makeText(getContext(),email,Toast.LENGTH_LONG).show();
+                registrationAccountDetails.setAccountDetailsPhase1(email,password,role,firstName,lastName);
+                registrationAccountDetails.setLayoutFields(mEmail,mPassword,mFirstName,mLastName,managerText,ownerText);
+                registrationAccountDetails.moveToNextPhase(getFragmentManager());
+        }
         });
-
-
         managerSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                managerDetails.setRole(Roles.Manager.toString());
+                role = Roles.Manager.toString();
                 managerText.setTextColor(getResources().getColor(R.color.colorPrimary));
             }
         });
         ownerSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                managerDetails.setRole(Roles.Admin.toString());
+                role = Roles.Admin.toString();
                 ownerText.setTextColor(getResources().getColor(R.color.colorPrimary));
             }
         });
@@ -95,45 +73,35 @@ public class AccountDetails extends Fragment {
     }
 
     private void setAccountDetails(){
-       // registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
-        registrationAccountDetails.setManagerDetails(managerDetails);
-        registrationAccountDetails.setPassword(mPassword.getEditText().getText().toString());
-    }
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        email = mEmail.getEditText().getText().toString();
+        firstName = mFirstName.getEditText().getText().toString();
+        lastName = mLastName.getEditText().getText().toString();
+        password = mPassword.getEditText().getText().toString();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-    public void moveTONextFragment(){
+    public void InitialiseComponents(View view){
+        mEmail = view.findViewById(R.id.email);
+        mPassword = view.findViewById(R.id.password);
+        mFirstName = view.findViewById(R.id.first_name);
+        mLastName = view.findViewById(R.id.last_name);
+        mPassword = view.findViewById(R.id.password);
+        managerSelection= view.findViewById(R.id.manager_imageView);
+        ownerSelection =  view.findViewById(R.id.owner_imageView);
+        managerText = view.findViewById(R.id.manager_text);
+        ownerText = view.findViewById(R.id.owner_text);
+        mContinue = view.findViewById(R.id.button_continue);
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        if(managerDetails.getRole().equals(Roles.Admin.toString())){
-            fragmentTransaction.replace(R.id.fragment_container, new StoreList() , "storeList")
-           .commit();
-        }else{
-            fragmentTransaction.replace(R.id.fragment_container, new StoreDetails() )
-            .commit();
-        }
-        }
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

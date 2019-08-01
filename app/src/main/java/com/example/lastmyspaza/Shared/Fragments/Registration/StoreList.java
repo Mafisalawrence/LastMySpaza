@@ -17,10 +17,9 @@ import com.example.lastmyspaza.Shared.Classes.Authentication;
 import com.example.lastmyspaza.Shared.Classes.DatabaseIteration;
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
 import com.example.lastmyspaza.Shared.Interfaces.OnStoreListLister;
-import com.example.lastmyspaza.Shared.Models.ManagerDetails;
+import com.example.lastmyspaza.Shared.Models.AccountDetails;
 import com.example.lastmyspaza.Shared.Models.Store;
 import com.example.lastmyspaza.Shared.ViewModel.RegistrationAccountDetails;
-import com.example.lastmyspaza.Shared.ViewModel.StoreListViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,10 +29,8 @@ import com.google.firebase.database.DatabaseError;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
 
 import static android.content.ContentValues.TAG;
 
@@ -44,8 +41,8 @@ public class StoreList extends Fragment {
 
     private ArrayList<Store> stores = new ArrayList<>();
     private StoresListAdapter storeListAdapter;
-    private ManagerDetails managerDetails;
-    private StoreListViewModel StoreListViewModel;
+    private AccountDetails accountDetails;
+  //  private StoreListViewModel StoreListViewModel;
     private RegistrationAccountDetails registrationAccountDetails;
     private DatabaseIteration databaseIteration;
     private Authentication authentication;
@@ -66,7 +63,7 @@ public class StoreList extends Fragment {
 
        // StoreListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
         //registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
-       // managerDetails = registrationAccountDetails.getManagerDetails();
+       // accountDetails = registrationAccountDetails.getAccountDetails();
         databaseIteration = new DatabaseIteration(getContext());
         authentication =  new Authentication(getContext());
 
@@ -95,36 +92,36 @@ public class StoreList extends Fragment {
         //currentUserId = authentication.GetCurrentUser().getUid();
         //getAllStoresOFOwner(currentUserId);
 
-        addDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.fragment_container, new StoreDetails(),"storeDetails")
-                        .hide(fragmentManager.findFragmentByTag("storeList"))
-                        .commit();
-            }
-        });
-
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                managerDetails = registrationAccountDetails.getManagerDetails();
-                authentication.CreateManagerAccount(managerDetails.getEmail(),registrationAccountDetails.getPassword())
-                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                 if ( task.isSuccessful()){
-                                    String userId = authentication.GetCurrentUser().getUid();
-                                    addStoreDetailsToDb(userId);
-                                    addManagerDetailsToDb(userId);
-                                }else
-                                {
-                                    Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-            }
-        });
+//        addDetails.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentManager fragmentManager = getFragmentManager();
+//                fragmentManager.beginTransaction().add(R.id.fragment_container, new StoreDetails(),"storeDetails")
+//                        .hide(fragmentManager.findFragmentByTag("storeList"))
+//                        .commit();
+//            }
+//        });
+//
+//        done.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                accountDetails = registrationAccountDetails.getAccountDetails();
+//                authentication.CreateManagerAccount(accountDetails.getEmail(),registrationAccountDetails.getPassword())
+//                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                 if ( task.isSuccessful()){
+//                                    String userId = authentication.GetCurrentUser().getUid();
+//                                    addStoreDetailsToDb(userId);
+//                                    addManagerDetailsToDb(userId);
+//                                }else
+//                                {
+//                                    Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
+//                                }
+//                            }
+//                        });
+            //}
+        //});
 
         return view;
     }
@@ -144,7 +141,7 @@ public class StoreList extends Fragment {
     }
     public void addManagerDetailsToDb(String uid)
     {
-        databaseIteration.addManagerInformationToDb(uid,managerDetails)
+        databaseIteration.addManagerInformationToDb(uid, accountDetails)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -159,27 +156,27 @@ public class StoreList extends Fragment {
                     }
                 });
     }
-    private void getAllStoresOFOwner(String uid) {
-
-        DatabaseIteration dbIteration = new DatabaseIteration(this.getContext());
-        dbIteration.getAllStoresOfOwner("stores",uid, new OnGetDataListener() {
-            @Override
-            public void onStart() {
-            }
-
-            @Override
-            public void onSuccess(DataSnapshot data) {
-                for(DataSnapshot value : data.getChildren()) {
-                    Store store = value.getValue(Store.class);
-                    StoreListViewModel.setStore(store);
-                }
-            }
-
-            @Override
-            public void onFailed(DatabaseError databaseError) {
-                Log.d(TAG,databaseError.toString());
-            }
-        });
-    }
+//    private void getAllStoresOFOwner(String uid) {
+//
+//        DatabaseIteration dbIteration = new DatabaseIteration(this.getContext());
+//        dbIteration.getAllStoresOfOwner("stores",uid, new OnGetDataListener() {
+//            @Override
+//            public void onStart() {
+//            }
+//
+//            @Override
+//            public void onSuccess(DataSnapshot data) {
+//                for(DataSnapshot value : data.getChildren()) {
+//                    Store store = value.getValue(Store.class);
+//                    StoreListViewModel.setStore(store);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailed(DatabaseError databaseError) {
+//                Log.d(TAG,databaseError.toString());
+//            }
+//        });
+//    }
 
 }

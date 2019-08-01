@@ -1,10 +1,9 @@
 package com.example.lastmyspaza.Shared.Classes;
 
 import android.content.Context;
-import com.example.lastmyspaza.Shared.Fragments.Registration.StoreDetails;
+
 import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
-import com.example.lastmyspaza.Shared.Models.ManagerDetails;
-import com.example.lastmyspaza.Shared.Interfaces.OnGetDataListener;
+import com.example.lastmyspaza.Shared.Models.AccountDetails;
 import com.example.lastmyspaza.Shared.Models.Product;
 import com.example.lastmyspaza.Shared.Models.Store;
 import com.google.android.gms.tasks.Task;
@@ -35,10 +34,10 @@ public class DatabaseIteration {
        return myRef.child(uid).child("roles").setValue(role);
     }
 
-    public Task<Void> addManagerInformationToDb(String uid, ManagerDetails managerDetails)
+    public Task<Void> addManagerInformationToDb(String uid, AccountDetails accountDetails)
     {
         DatabaseReference myRef = firebaseDatabase.getReference("users");
-         return myRef.child(uid).setValue(managerDetails);
+         return myRef.child(uid).setValue(accountDetails);
     }
     public void addStoresDetailsToDb(ArrayList<Store> stores){
         DatabaseReference myRef = firebaseDatabase.getReference("stores");

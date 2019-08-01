@@ -9,11 +9,9 @@ import android.widget.TextView;
 
 import com.example.lastmyspaza.R;
 import com.example.lastmyspaza.Shared.Interfaces.OnItemClickListener;
-import com.example.lastmyspaza.Shared.Models.ManagerDetails;
 import com.example.lastmyspaza.Shared.Models.Product;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
