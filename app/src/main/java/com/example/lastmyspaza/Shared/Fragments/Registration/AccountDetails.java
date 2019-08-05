@@ -61,6 +61,7 @@ public class AccountDetails extends Fragment {
                 managerText.setTextColor(getResources().getColor(R.color.colorPrimary));
             }
         });
+
         ownerSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

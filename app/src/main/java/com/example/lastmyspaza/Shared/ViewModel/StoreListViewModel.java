@@ -37,7 +37,9 @@ public class StoreListViewModel extends ViewModel {
         public List<Store> apply(DataSnapshot dataSnapshot) {
             mList.clear();
             for(DataSnapshot snap : dataSnapshot.getChildren()){
+                String id = snap.getKey();
                 Store msg = snap.getValue(Store.class);
+                msg.setStoreId(id);
                 mList.add(msg);
             }
             return mList;

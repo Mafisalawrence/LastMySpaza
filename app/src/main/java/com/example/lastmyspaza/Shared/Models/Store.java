@@ -7,8 +7,8 @@ public class Store implements Serializable {
     private String storeId;
     private String storeName;
     private String storeLocation;
-    private String storeManager;
-    private String storeOwner;
+    private String storeManagerId;
+    private String storeOwnerId;
 
     public String getStoreLocation() {
         return storeLocation;
@@ -27,19 +27,19 @@ public class Store implements Serializable {
     }
 
     public String getStoreManager() {
-        return storeManager;
+        return storeManagerId;
     }
 
     public void setStoreManager(String storeManager) {
-        this.storeManager = storeManager;
+        this.storeManagerId = storeManager;
     }
 
     public String getStoreOwner() {
-        return storeOwner;
+        return storeOwnerId;
     }
 
     public void setStoreOwner(String storeOwner) {
-        this.storeOwner = storeOwner;
+        this.storeOwnerId = storeOwner;
     }
 
     public String getStoreId() {

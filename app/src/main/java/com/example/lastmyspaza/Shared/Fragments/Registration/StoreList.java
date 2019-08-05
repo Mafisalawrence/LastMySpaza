@@ -3,6 +3,7 @@ package com.example.lastmyspaza.Shared.Fragments.Registration;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class StoreList extends Fragment {
 
     private RecyclerView recyclerView;
     private StoresListAdapter storesListAdapter;
+    private RegistrationAccountDetails registrationAccountDetails;
     private Button done;
     public StoreList() {
         // Required empty public constructor
@@ -45,8 +47,11 @@ public class StoreList extends Fragment {
         done = view.findViewById(R.id.done);
         recyclerView = view.findViewById(R.id.store_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         StoreListViewModel storeListViewModel = ViewModelProviders.of(getActivity()).get(StoreListViewModel.class);
-        final RegistrationAccountDetails registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
+        registrationAccountDetails = ViewModelProviders.of(getActivity()).get(RegistrationAccountDetails.class);
+        registrationAccountDetails.InitialiseContext(getActivity());
+
         storeListViewModel.getStoreList().observe(this, new Observer<List<Store>>() {
             @Override
             public void onChanged(@Nullable List<Store> stores) {
@@ -54,10 +59,10 @@ public class StoreList extends Fragment {
                     @Override
                     public void cardSelected(Store store, int i, MaterialCardView cardView) {
                         if (cardView.isChecked()){
-                            registrationAccountDetails.setStore(store);
                             done.setEnabled(false);
                             cardView.setChecked(false);}
                         else{
+                            registrationAccountDetails.setStore(store);
                             done.setEnabled(true);
                             cardView.setChecked(true);
                         }
@@ -70,9 +75,7 @@ public class StoreList extends Fragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Store s = registrationAccountDetails.getStore();
-                Toast.makeText(getContext(),s.getStoreName(),Toast.LENGTH_LONG).show();
-                registrationAccountDetails.setRegistrationDetailsPhase2();
+                registrationAccountDetails.createAccount();
             }
         });
         return view;
