@@ -9,6 +9,7 @@ import com.example.lastmyspaza.Shared.Activities.NavigationHelper;
 import com.example.lastmyspaza.Shared.Fragments.Registration.StoreDetails;
 import com.example.lastmyspaza.Shared.Fragments.Registration.StoreList;
 import com.example.lastmyspaza.Shared.Models.AccountDetails;
+import com.example.lastmyspaza.Shared.Models.Store;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.fragment.app.FragmentManager;
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModel;
 
 public class RegistrationAccountDetails extends ViewModel {
     private AccountDetails accountDetails = new AccountDetails();
+    private Store store;
     private String password;
     private TextInputLayout mEmail ,mPassword, mFirstName, mLastName;
     private TextView managerText, ownerText;
@@ -82,5 +84,19 @@ public class RegistrationAccountDetails extends ViewModel {
 
     public boolean isPasswordValid() {
         return password.length() > 5;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public void setRegistrationDetailsPhase2() {
+            accountDetails.setStore(store);
+            Log.e("STORE TEST", accountDetails.getStore().getStoreName());
+
     }
 }

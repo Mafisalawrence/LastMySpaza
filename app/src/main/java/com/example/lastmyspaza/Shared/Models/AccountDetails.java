@@ -9,35 +9,16 @@ public class AccountDetails implements Serializable {
     private String lastName;
     private String email;
     private String role;
-    private String storeName;
-    private String storeLocation;
+    private Store store;
 
-    public AccountDetails(String firstName, String lastName, String email, String storeName, String storeLocation){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.storeName = storeName;
-        this.storeLocation = storeLocation;
-    }
     public AccountDetails(){}
 
-    //private ArrayList<Store> stores;
-
-
-//    public ArrayList<Store> getStores() {
-//        return stores;
-//    }
-//
-//    public void setStores(ArrayList<Store> stores) {
-//        this.stores = stores;
-//    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setStore(Store store) {
+        this.store = store;
     }
 
-    public void setStoreLocation(String storeLocation) {
-        this.storeLocation = storeLocation;
+    public Store getStore() {
+        return store;
     }
 
     public void setLastName(String lastName) { this.lastName = lastName; }
@@ -48,14 +29,6 @@ public class AccountDetails implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public String getStoreLocation() {
-        return storeLocation;
     }
 
     public String getLastName() {

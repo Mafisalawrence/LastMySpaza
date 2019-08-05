@@ -51,17 +51,17 @@ public class StoresFragment extends Fragment {
         stores.add(st);
         stores.add(sss);
 
-        StoresListAdapter = new StoresListAdapter(stores, new OnStoreListLister() {
-            @Override
-            public void deleteItem(Store store, int i) {
-                new MaterialAlertDialogBuilder(getContext())
-                        .setTitle(R.string.confirm_remove_store_title)
-                        .setMessage(R.string.confirm_remove_store)
-                        .setNegativeButton("Cancel",null)
-                        .setPositiveButton("Ok", null)
-                        .show();
-            }
-        });
+//        StoresListAdapter = new StoresListAdapter(stores, new OnStoreListLister() {
+//            @Override
+//            public void deleteItem(Store store, int i) {
+//                new MaterialAlertDialogBuilder(getContext())
+//                        .setTitle(R.string.confirm_remove_store_title)
+//                        .setMessage(R.string.confirm_remove_store)
+//                        .setNegativeButton("Cancel",null)
+//                        .setPositiveButton("Ok", null)
+//                        .show();
+//            }
+//        });
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
